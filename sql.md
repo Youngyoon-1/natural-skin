@@ -83,9 +83,9 @@ create table qna_board(
     qna_board_reply_state number(1),
     qna_board_hit number,
     constraint fk_qna_member_id foreign key(member_id)
-    references member(member_id),
+    references member(member_id) ON DELETE CASCADE,
     constraint fk_qna_product_id foreign key(product_id)
-    references product(product_id)
+    references product(product_id)ON DELETE CASCADE
 );
 create sequence qna_board_seq;
 
@@ -95,9 +95,9 @@ create table basket(
     product_id number,
     basket_amount number,
     constraint fk_basket_member_id foreign key(member_id)
-    references member(member_id),
+    references member(member_id) ON DELETE CASCADE,
     constraint fk_basket_product_id foreign key(product_id)
-    references product(product_id)
+    references product(product_id) ON DELETE CASCADE
 );
 create sequence basket_seq;
 
