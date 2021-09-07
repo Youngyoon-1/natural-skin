@@ -67,7 +67,9 @@ create table review_reply(
     constraint fk_review_board_id foreign key(review_board_id)
     references review_board(review_board_id)ON DELETE CASCADE,
     constraint fk_reveiw_reply_product_id foreign key(product_id)
-    references product(product_id)ON DELETE CASCADE
+    references product(product_id)ON DELETE CASCADE,
+    constraint fk_reply_member_id foreign key(member_id)
+    references member(member_id)ON DELETE CASCADE
 );
 create sequence review_reply_seq;
 
