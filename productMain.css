@@ -1,0 +1,58 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+    text-align: center;
+}
+h1{
+    margin: 50px;
+    font-size: 50px;
+}
+hr{
+	margin-left: 50px;
+    margin-right: 50px;
+}
+h2{
+	font-size: 30px;
+	margin: 15px;
+	margin-top: 30px;
+}
+#productmanage{
+	margin-left: 45%;
+	margin-top: 30px;
+	margin-bottom:30px;
+}
+table{
+	width: 85%;
+	margin: 10px auto;
+	border-collapse: collapse;
+}
+ th, td{
+	border-bottom:.5px solid #7B7C95;
+	padding: 20px;
+}
+      button.main-logo { 
+       
+        cursor: pointer;
+        	margin-left: 65px;
+	margin-top: 20px;
+	float:left;
+      }
+button.save-logo{
+	margin-right: 65px;
+	margin-top: 20px;
+	float:right;
+}
+#search-logo{
+	vertical-align:middle;
+	margin-bottom:2px;
+}
+#search-logo:hover{
+	cursor: pointer;
+}
+button:hover{
+	cursor: pointer;
+}
