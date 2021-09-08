@@ -36,9 +36,18 @@
 			</div>
 		</div>
 		<div>
-			관리자님 환영합니다.
+			<span id="whoru">관리자님 환영합니다.</span>
 			<a class="header" href="#">Logout</a>
-			<a class="header" href="aMain">AdminPage</a>
+			<div id="third-dropdown" class="dropdown">
+				<a class="header" href="aMain">AdminPage</a>
+				<div class="dropdown-content">
+						<a class="header" href="aMemberMain">회원관리</a>
+						<a class="header">공지사항관리</a>
+						<a class="header">Q&A관리</a>
+						<a class="header"href="aOrderMain">주문관리</a>
+						<a class="header">상품관리</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
