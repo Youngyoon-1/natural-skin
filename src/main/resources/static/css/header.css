@@ -22,9 +22,6 @@ a{
     align-items: center;
    	height: 40px;
 }
-.dropdown{
-	display: inline-block;
-}
 #headerLeft{
 	margin: 0;
     padding: 0;
@@ -46,18 +43,8 @@ a{
 .dropdown-content a{
 	display: block;
 	padding: 7px;
-	text-align: center;
 }
 .header:hover:not(#img){
 	background-color: #E1E1E1;
 	transition : .2s ease-in-out;
-}
-.dropdown-content > .header{
-	letter-spacing: 1px;
-}
-#third-dropdown{
-	margin-right: 5px;
-}
-#whoru{
-	margin-right: 15px;
 }

@@ -13,7 +13,7 @@
 <body>
 	<h2>회원정보상세</h2>
 	<hr style="border: solid 1px;">
-	<form action="aMemberModify" onsubmit="return aMemberM()">
+	<form action="#">
 		<div id="first-div">
 			<label>아이디</label><br>
 			<input id="id" value="yoon" readonly style="border:none">
@@ -47,15 +47,8 @@
 		<div id="btns">
 			<button type="button" onclick="window.close()">취소</button>
 			<button type="submit">수정</button>
-			<button type="button" onclick="window.open('aMemberAlert','','width=600, height=200')">회원탈퇴</button>
+			<button type="button" onclick="window.open('dropAlert','','width=600, height=200')">회원탈퇴</button>
 		</div>
 	</form>
-	<script>
-		function aMemberM(){
-			alert("회원정보 수정이 완료되었습니다.");
-			return true;
-		}
-	</script>
 </body>
-
 </html>

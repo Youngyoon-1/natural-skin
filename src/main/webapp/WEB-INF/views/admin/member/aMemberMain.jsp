@@ -51,6 +51,13 @@
 		<td>홍길동</td>
 		<td>2020-09-23</td>
 	</tr>
+		<tr onclick="window.open('aMemberV','child_window','width=650, height=700')">
+		<td>3</td>
+		<td>일반회원</td>
+		<td>safdfd</td>
+		<td>홍길동</td>
+		<td>2020-09-23</td>
+	</tr>
 	</table>
 	<button type="button" onClick="location.href='aMain'">메인으로</button>
 	<script src="js/admin/member/aMemberMain.js"></script>
