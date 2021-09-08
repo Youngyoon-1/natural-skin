@@ -44,7 +44,7 @@ table{
 	padding: 10px;
 }
 
-button{
+button:not(.replyBtn){
 	margin-left: 65px;
 	margin-top: 20px;
 	float:left;
@@ -73,10 +73,26 @@ img {
 }
 #re {
 	width: 30px;
-	height: 15px
+	height: 15px;
+	padding-bottom: 3px;
+	padding-right: 3px;
 }
-
 #buttons {
 	width: 300px;
 	margin: auto;
+}
+#delimiter, #state{
+	display: none;
+}
+.replyBtn{
+	letter-spacing: .5px;
+	padding-right: 1.5px;
+	padding-left: 1.5px;
+}
+.reply_td{
+	width: 65px;
+	padding: 0;
+}
+#delimiter{
+	width:60px;
 }

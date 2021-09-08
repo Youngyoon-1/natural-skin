@@ -31,7 +31,7 @@
 			<td>100</td>
 		</tr>
 		<tr>
-			<td colspan="6">글내용입니다.</td>
+			<td id="content" colspan="6">글내용입니다.</td>
 		</tr>
 	</table>
 	

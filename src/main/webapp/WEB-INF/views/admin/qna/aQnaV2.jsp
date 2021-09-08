@@ -7,7 +7,7 @@
 			<head>
 				<meta charset="UTF-8">
 				<title></title>
-				<link rel="stylesheet" href="css/admin/qna/adminPage.css">
+				<link rel="stylesheet" href="css/admin/qna/aQnaV.css">
 			</head>
 
 			<body>
@@ -21,25 +21,46 @@
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td colspan="6">언제도착하나요?<img id="lock" src="images/lock.png" alt="잠금" /></td>
+						<td>언제도착하나요?<img id="lock" src="images/lock.png" alt="잠금" /></td>
 					</tr>
 					<tr>
 						<th>아이디</th>
 						<td>hong</td>
 						<th>작성일</th>
 						<td>2021-09-07</td>
+					</tr>
+					<tr>
+						<td id="content" colspan="6">글내용입니다.</td>
+					</tr>
+				</table>
+
+				<h2>답변</h2>
+				<br>
+				<hr class="second-hr" style="border: solid 1px;">
+				<table>
+					<tr>
+						<th>아이디</th>
+						<td>admin</td>
+						<th>작성일</th>
+						<td>2021-09-07</td>
 						<th>조회수</th>
 						<td>10</td>
 					</tr>
 					<tr>
-						<td colspan="6">글내용입니다.</td>
+						<td colspan="6"><form onsubmit="return aQnaM()"><textarea>답변내용입니다.</textarea></td>
 					</tr>
 				</table>
-				<div id="buttons">
+				<div id="adminPageButtons">
 					<button type="button" onClick="window.close()">취소</button>
+					<button type="submit">수정</button>
+					</form>
 					<button type="button"
-						onclick="window.open('alert1','child_window2','width=300, height=250')">삭제</button>
+						onclick="window.open('aQnaAlert','','width=600, height=200')">삭제</button>
 				</div>
+				<script>
+					function aQnaM(){
+						alert("내용이 수정되었습니다.");
+					}
+				</script>
 			</body>
-
 			</html>

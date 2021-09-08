@@ -73,4 +73,24 @@ public class AdminController {
 				+"opener.opener.location.href='aOrderMain';"
 				+"</script>";
 	}
+	@RequestMapping("aQnaMain")
+	public String aQnaMain() {
+		return "admin/qna/aQnaMain";
+	}
+	@RequestMapping("aQnaV1")
+	public String aQnaV1() {
+		return "admin/qna/aQnaV1";
+	}
+	@RequestMapping("aQnaV2")
+	public String aQnaV2() {
+		return "admin/qna/aQnaV2";
+	}
+	@RequestMapping("aQnaAlert")
+	public String aQnaAlert() {
+		return "admin/qna/aQnaAlert";
+	}
+	@RequestMapping("aQnaReply")
+	public String aQnaReply() {
+		return "admin/qna/aQnaReply";
+	}
 }
