@@ -64,4 +64,41 @@ public class AdminController {
 		
 		return "admin/product/productAlert";
 	}
+	@RequestMapping("aQnaMain")
+	public String aQnaMain() {
+		return "admin/qna/aQnaMain";
+	}
+	@RequestMapping("aQnaV1")
+	public String aQnaV1() {
+		return "admin/qna/aQnaV1";
+	}
+	@RequestMapping("aQnaV2")
+	public String aQnaV2() {
+		return "admin/qna/aQnaV2";
+	}
+	@RequestMapping("aQnaAlert")
+	public String aQnaAlert() {
+		return "admin/qna/aQnaAlert";
+	}
+	@RequestMapping("aQnaReply")
+	public String aQnaReply() {
+		return "admin/qna/aQnaReply";
+	}
+	@RequestMapping("aNoticeMain")
+	public String aNoticeMain() {
+		return "admin/notice/aNoticeMain";
+	}
+	@RequestMapping("aNoticeW")
+	public String aNoticeW() {
+    return "admin/notice/aNoticeW";
+		}	
+	@RequestMapping("aNoticeV")
+	public String aNoticeV() {
+    return "admin/notice/aNoticeV";
+		}
+	
+	@RequestMapping("noticeAlert")
+	public String noticeAlert() {
+		return "admin/notice/noticeAlert";
+	}
 }
