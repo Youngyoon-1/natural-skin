@@ -1,0 +1,56 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+    text-align: center;
+}
+h1{
+    margin: 50px;
+    font-size: 30px;
+}
+hr{
+	margin-left: 50px;
+    margin-right: 50px;
+}
+table{
+	width:85%;
+	margin: 10px auto;
+	border-collapse: collapse;
+}
+ th, td{
+	padding: 10px;
+	text-align: left;
+	vertical-align:left;
+}
+form{
+	text-align: left;
+	vertical-align:left;
+}
+input:not(#submit, #image), select{
+	width:90%;
+	height: 31px;
+	border:none;
+	background-color: #f1f1f1;
+	padding-left: 3px;
+}
+#image{
+		width:50%;
+	height: 31px;
+	border:none;
+	background-color: #f1f1f1;
+	padding-left: 3px;
+}
+button.cancel{
+	margin-right: 65px;
+	margin-top: 20px;
+}
+button.save{
+	margin-right: 65px;
+	margin-top: 20px;
+}
+button:hover{
+	cursor: pointer;
+}

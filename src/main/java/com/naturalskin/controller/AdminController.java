@@ -1,8 +1,10 @@
 package com.naturalskin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AdminController {
@@ -23,55 +25,44 @@ public class AdminController {
 	public String aMemberV() {
 		return "admin/member/aMemberV";
 	}
-	@RequestMapping("aMemberModify")
-	@ResponseBody
-	public String aMemberModify() {
-		return "<script>"
-				+"window.close();"
-				+"opener.location.href='aMemberMain';"
-				+"</script>";
+	@RequestMapping("dropAlert")
+	public String dropAlert() {
+		return "admin/member/dropAlert";
 	}
-	@RequestMapping("aMemberAlert")
-	public String aMemberAlert() {
-		return "admin/member/aMemberAlert";
+	@RequestMapping("productMain")
+	public String productMain() {
+		
+			
+			//String page = request.getParameter("page");
+			//System.out.println( "page:" + page);
+			//model.addAttribute("page", page);
+			
+			//int num_page_no = Integer.parseInt( page ); //page번호 1,2,3,4
+			//int num_page_size = 5; //한페이지당 Row갯수
+			//int startRowNum = (num_page_no - 1) * num_page_size + 1; // 1, 6, 11 페이지 시작 줄번호
+			//int endRowNum = (num_page_no * num_page_size); //5, 10, 15 페이지 끝 줄번호
+			
+			//System.out.println("startRowNum:"+startRowNum);
+			//System.out.println("endRowNum:"+endRowNum);
+			
+			//model.addAttribute("list", dao.listDao());
+			//model.addAttribute("list", dao.listPageDao(String.valueOf(startRowNum), String.valueOf(endRowNum)));  //최상위 10개
+			
+		return "admin/product/productMain";
 	}
-	@RequestMapping("aMemberDelete")
-	@ResponseBody
-	public String aMemberDelete() {
-		return "<script>"
-				+"window.close();"
-				+"opener.close();"
-				+"opener.opener.location.href='aMemberMain'"
-				+"</script>";
+	@RequestMapping("productW")
+	public String productW() {
+		return "admin/product/productW";
 	}
-	@RequestMapping("aOrderMain")
-	public String aOrderMain() {
-		return "admin/order/aOrderMain";
+	@RequestMapping("productV")
+	public String productV() {
+		
+		return "admin/product/productV";
 	}
-	@RequestMapping("aOrderV")
-	public String aOrderV() {
-		return "admin/order/aOrderV";
-	}
-	@RequestMapping("aOrderAlert")
-	public String aOrderAlert() {
-		return "admin/order/aOrderAlert";
-	}
-	@RequestMapping("aOrderModify")
-	@ResponseBody
-	public String aOrderModify() {
-		return "<script>"
-				+"window.close();"
-				+"opener.location.href='aOrderMain';"
-				+"</script>";
-	}
-	@RequestMapping("aOrderDelete")
-	@ResponseBody
-	public String aOrderDelete(){
-		return "<script>"
-				+"window.close();"
-				+"opener.close();"
-				+"opener.opener.location.href='aOrderMain';"
-				+"</script>";
+	@RequestMapping("productAlert")
+	public String productAlert() {
+		
+		return "admin/product/productAlert";
 	}
 	@RequestMapping("aQnaMain")
 	public String aQnaMain() {

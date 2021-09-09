@@ -36,8 +36,9 @@
 			</div>
 		</div>
 		<div>
-			<span id="whoru">관리자님 환영합니다.</span>
+			관리자님 환영합니다.
 			<a class="header" href="#">Logout</a>
+			<a class="header" href="aMain">AdminPage</a>
 			<div id="third-dropdown" class="dropdown">
 				<a class="header" href="aMain">AdminPage</a>
 				<div class="dropdown-content">
