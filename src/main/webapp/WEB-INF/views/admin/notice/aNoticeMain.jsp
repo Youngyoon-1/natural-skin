@@ -31,13 +31,13 @@
 		<th>아이디</th>
 		<th>작성일</th>
 	</tr>
-	<tr onclick="window.open('aNoticeV','child_window','width=650, height=700')">
+	<tr onclick="window.open('aNoticeV','child_window','width=650, height=500')">
 		<td>1</td>
 		<td>공지사항1입니다</td>
 		<td>admin1</td>
 		<td>2020-09-23</td>
 	</tr>
-	<tr onclick="window.open('aNoticeV','child_window','width=650, height=700')">
+	<tr onclick="window.open('aNoticeV','child_window','width=650, height=500')">
 		<td>2</td>
 		<td>공지사항2입니다</td>
 		<td>admin2</td>
@@ -46,7 +46,7 @@
 	</tr>
 	</table>
 	<button id="button1" type="button" onClick="location.href='aMain'">메인으로</button>
-	<button id="button2" type="button" onClick="location.href='aNoticeW'">글쓰기</button>
+	<button id="button2" type="button" onClick="window.open('aNoticeW','','width=650, height=500')">글쓰기</button>
 	<script src="js/admin/notice/aNoticeMain.js"></script>
 </body>
 </html>

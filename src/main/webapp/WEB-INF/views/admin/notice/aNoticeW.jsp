@@ -14,14 +14,14 @@
 	<h2>공지사항 작성하기</h2>
 	<hr style="border: solid 2px;">
 	<form action="">
-		<div id="first-div"	><span>제목</span>
-		<input id="" value="공지사항입니다" type="text"></div>
+		<label id="title_label">제목</label>
+		<input id="" value="공지사항입니다" type="text">
 		<hr style="border: solid 1px;">	
-		<div id="second-div"><textarea id="content" placeholder="공지사항입니다" onkeydown="resize(this)" onkeyup="resize(this)"></textarea><br></div>
+		<textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)">공지사항입니다.
+		</textarea>
 		<div id="btns">
-			<button type="button" onclick="history.back();">취소</button>
+			<button type="button" onclick="window.close();">취소</button>
 			<button onclick="javascript:btn()" type="submit">글쓰기</button>
-			
 		</div>
 	</form>
 	<script src="js/admin/notice/aNoticeW.js"></script>

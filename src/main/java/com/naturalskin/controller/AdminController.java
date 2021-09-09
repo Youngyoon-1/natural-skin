@@ -93,4 +93,21 @@ public class AdminController {
 	public String aQnaReply() {
 		return "admin/qna/aQnaReply";
 	}
+	@RequestMapping("aNoticeMain")
+	public String aNoticeMain() {
+		return "admin/notice/aNoticeMain";
+	}
+	@RequestMapping("aNoticeW")
+	public String aNoticeW() {
+    return "admin/notice/aNoticeW";
+		}	
+	@RequestMapping("aNoticeV")
+	public String aNoticeV() {
+    return "admin/notice/aNoticeV";
+		}
+	
+	@RequestMapping("noticeAlert")
+	public String noticeAlert() {
+		return "admin/notice/noticeAlert";
+	}
 }

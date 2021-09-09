@@ -20,7 +20,7 @@
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>게시글관리<div><span>New!</span></div></div>
-			<p class="p"><a class="aMain" href="/">공지사항관리</a><br><a class="aMain" href="aQnaMain">Q&A관리(새로운 <span>2</span>건)</a></p>
+			<p class="p"><a class="aMain" href="aNoticeMain">공지사항관리</a><br><a class="aMain" href="aQnaMain">Q&A관리(새로운 <span>2</span>건)</a></p>
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>주문관리<div><span>New!</span></div></div>

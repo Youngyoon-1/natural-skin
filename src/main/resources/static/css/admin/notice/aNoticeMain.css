@@ -39,6 +39,7 @@ h2{
 .second-hr{
 	margin-left: 65px;
     margin-right: 65px;
+    margin-top: 0;
 }
 #role{
 	display: none;

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" href="css/admin/member/dropAlert.css">
+<link rel="stylesheet" href="css/admin/member/aMemberAlert.css">
 <script type="text/javascript"></script>
 </head>
 <body>

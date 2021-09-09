@@ -14,19 +14,17 @@
 	<h2>공지사항 상세보기</h2>
 	<hr style="border: solid 2px;">
 	<form action="">
-		<div><span>제목</span>
-		<input id="title" value="공지사항입니다" type="text"></div>
+		<label id="title-label">제목</label>
+		<input id="title" value="공지사항입니다" type="text">
 		<hr style="border: solid 1px;">
-		<div id="first-div">
-		<div>아이디 &nbsp;<input id="" value="admin1" type="text" readonly style="background-color:transparent;"></div>
-		<div>작성일 &nbsp;<input id="" value="2021-8-20" type="text" readonly style="background-color:transparent;"></div>
-		<div>조회수<input id="" value="102" type="text" readonly style="background-color:transparent;"></div>
-	    </div>
+		<label>아이디</label><span>admin1</span>
+		<label>작성일</label><span>2021-09-09</span>
+		<label>조회수</label><span>100</span>
 		<hr style="border: solid 1px;">
 		<div id="second-div"><textarea id="content" placeholder="공지사항입니다" onkeydown="resize(this)" onkeyup="resize(this)"></textarea><br></div>
 		<div id="btns">
 			<button type="button" onclick="window.close()">취소</button>
-			<button onclick="javascript:btn()" type="submit">저장</button>
+			<button onclick="javascript:btn()" type="submit">수정</button>
 			<button type="button" onclick="window.open('noticeAlert','','width=600, height=200')">삭제</button>
 		</div>
 	</form>
