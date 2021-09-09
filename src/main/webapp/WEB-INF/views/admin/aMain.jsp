@@ -24,11 +24,11 @@
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>주문관리<div><span>New!</span></div></div>
-			<p class="p"><a class="aMain" href="/">신규주문(새로운 <span>2</span>건)</a><br><a class="aMain" href="/">취소요청(새로운 <span>2</span>건)</a></p>
+			<p class="p"><a class="aMain" href="aOrderMain">신규주문(새로운 <span>2</span>건)</a><br><a class="aMain" href="/">취소요청(새로운 <span>2</span>건)</a></p>
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>상품관리</div>
-			<a href="productMain"><p>판매중인상품: <span>4</span>개</p></a>
+			<a href="aProductMain"><p>판매중인상품: <span>4</span>개</p></a>
 		</div>
 	</div>
 </body>

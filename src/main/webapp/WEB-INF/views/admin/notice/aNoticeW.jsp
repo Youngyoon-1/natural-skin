@@ -15,10 +15,11 @@
 	<hr style="border: solid 2px;">
 	<form action="">
 		<label id="title_label">제목</label>
-		<input id="" value="공지사항입니다" type="text">
+		<input id="" value="" type="text">
 		<hr style="border: solid 1px;">	
-		<textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)">공지사항입니다.
+		<textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)">
 		</textarea>
+		<hr style="border: solid 1px;">
 		<div id="btns">
 			<button type="button" onclick="window.close();">취소</button>
 			<button onclick="javascript:btn()" type="submit">글쓰기</button>

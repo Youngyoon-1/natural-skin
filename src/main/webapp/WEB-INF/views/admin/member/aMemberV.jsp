@@ -47,7 +47,7 @@
 		<div id="btns">
 			<button type="button" onclick="window.close()">취소</button>
 			<button type="submit">수정</button>
-			<button type="button" onclick="window.open('dropAlert','','width=600, height=200')">회원탈퇴</button>
+			<button type="button" onclick="window.open('aMemberAlert','','width=600, height=200')">회원탈퇴</button>
 		</div>
 	</form>
 </body>

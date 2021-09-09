@@ -7,6 +7,10 @@
     font-size: 15px;
     text-align: center;
 }
+#btns{
+    margin: 50px;
+    display:inline-block;
+}
 h1{
     margin: 50px;
     font-size: 50px;
@@ -14,37 +18,7 @@ h1{
 hr{
 	margin-left: 50px;
     margin-right: 50px;
-}
-h2{
-	font-size: 30px;
-	margin: 15px;
-	margin-top: 30px;
-}
-#productmanage{
-	margin-left: 45%;
-	margin-top: 30px;
-	margin-bottom:30px;
-}
-table{
-	width: 85%;
-	margin: 10px auto;
-	border-collapse: collapse;
-}
- th, td{
-	border-bottom:.5px solid #7B7C95;
-	padding: 20px;
-}
-      button.main-logo { 
-       
-        cursor: pointer;
-        	margin-left: 65px;
-	margin-top: 20px;
-	float:left;
-      }
-button.save-logo{
-	margin-right: 65px;
-	margin-top: 20px;
-	float:right;
+    margin-top: 15px;
 }
 #search-logo{
 	vertical-align:middle;
@@ -53,6 +27,48 @@ button.save-logo{
 #search-logo:hover{
 	cursor: pointer;
 }
+#search-bar{
+	text-align: right;
+	margin-right: 65px;
+}
+h2{
+	font-size: 30px;
+	margin: 15px;
+	margin-top: 30px;
+}
+.second-hr{
+	margin-left: 65px;
+    margin-right: 65px;
+    margin-top: 0;
+}
+
+table{
+	width:85%;
+	margin: 10px auto;
+	border-collapse: collapse;
+}
+ th, td{
+	border-bottom:.5px solid #7B7C95;
+	padding: 10px;
+}
+tr:hover:not(#first-tr){
+	background-color: #f2f2f2;
+	opacity: .7;
+	cursor: pointer;
+	transition-duration: .2s;
+}
 button:hover{
 	cursor: pointer;
+}
+#button1{
+	margin-left: 65px;
+	margin-top: 20px;
+	float:left;
+	padding: 3px;
+}
+#button2{
+	margin-right: 65px;
+	margin-top: 20px;
+	float:right;
+	padding: 3px;
 }

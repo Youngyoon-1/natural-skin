@@ -21,7 +21,8 @@
 		<label>작성일</label><span>2021-09-09</span>
 		<label>조회수</label><span>100</span>
 		<hr style="border: solid 1px;">
-		<div id="second-div"><textarea id="content" placeholder="공지사항입니다" onkeydown="resize(this)" onkeyup="resize(this)"></textarea><br></div>
+		<div id="second-div"><textarea id="content"onkeydown="resize(this)" onkeyup="resize(this)">공지사항입니다.</textarea><br></div>
+		<hr style="border: solid 1px;">
 		<div id="btns">
 			<button type="button" onclick="window.close()">취소</button>
 			<button onclick="javascript:btn()" type="submit">수정</button>

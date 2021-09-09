@@ -7,15 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" href="css/admin/product/productAlert.css">
+<link rel="stylesheet" href="css/admin/member/aMemberAlert.css">
+<script type="text/javascript"></script>
 </head>
 <body>
 	<header><h3>상품삭제</h3></header>
 	<main>
-		<p>해당상품을 삭제하시겠습니까?<br>
+		<p>해당 상품을 삭제하시겠습니까?
 		</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button type="">확인</button>
+		<button onclick="javascript:btn()" type="">확인</button>
 	</main>
 </body>
 </html>
