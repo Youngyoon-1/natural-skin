@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.OrderDao">
+	<select id="findList" resultType="com.naturalskin.dto.OrderDto">
+		select * from(
+			select a.*, rownum as rn from(
+				select * from member_order
+				<choose>
+					<when test="orderDto.findBy == 'member_id'">where member_id = #{orderDto.member_id}</when>
+					<when test="orderDto.findBy == 'member_name'">where member_name = #{orderDto.member_name}</when>
+					<when test="orderDto.findBY == 'member_order_id'">where member_order_id = #{orderDto.member_order_id}</when>
+				</choose>
+				order by member_order_date desc)a
+		) where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
+	</select>
+	<select id="findOrderCount" resultType="int">
+		select count(*) from member_order
+		<choose>
+			<when test="findBy == 'member_id'">where member_id = #{member_id}</when>
+			<when test="findBy == 'member_name'">where member_name = #{member_name}</when>
+			<when test="findBy == 'member_order_id'">where member_order_id = #{member_order_id}</when>
+		</choose>
+	</select>
+	<select id="findById" resultType="com.naturalskin.dto.OrderDto">
+		select * from member_order where member_id = #{member_id}
+	</select>
+	<update id="modify">
+		update member_order set member_order_receive_name = #{member_order_receive_name},
+		member_order_receive_address = #{member_order_receive_address},
+		member_order_receive_address_detail = #{member_order_receive_address_detail},
+		member_order_receive_phone = #{member_order_receive_phone},
+		member_order_state = #{member_order_state}
+		where member_id = #{member_id}
+	</update>
+	<delete id="delete">
+		delete from member_order where member_id = #{member_id}
+	</delete>
+</mapper>

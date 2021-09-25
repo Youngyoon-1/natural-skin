@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.QnaDao">
+	<select id="findList" resultType="com.naturalskin.dto.QnaDto">
+		select * from (
+			select rownum as rn, a.* from(
+				select * from qna_board 
+				<choose>
+					<when test="qnaDto.findBy == 'member_id'">where member_id = #{qnaDto.member_id}</when>
+					<when test="qnaDto.findBy == 'qna_board_type'">where qna_board_type = #{qnaDto.qna_board_type}</when>
+					<when test="qnaDto.findBy == 'qna_board_reply_state'">where qna_board_reply_state = #{qnaDto.qna_board_reply_state}</when>
+				</choose>
+				order by qna_board_group_no desc, qna_board_date 
+			)a
+		)where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
+	</select>
+	<select id="findQnaCount" resultType="int">
+		select count(*) from qna_board
+		<choose>
+			<when test="findBy == 'member_id'">where member_id = #{member_id}</when>
+			<when test="findBy == 'qna_board_type'">where qna_board_type = #{qna_board_type}</when>
+			<when test="findBy == 'qna_board_reply_state'">where qna_board_reply_state = #{qna_board_reply_state}</when>
+		</choose>
+	</select>
+	<select id="findByGroup" resultType="com.naturalskin.dto.QnaDto">
+		select * from qna_board where qna_board_group_no = #{qna_board_group_no} order by qna_board_date
+	</select>
+	<select id="findById" resultType="com.naturalskin.dto.QnaDto">
+		select * from qna_board where qna_board_id = #{qna_board_id}
+	</select>
+	<update id="modify">
+		update qna_board set qna_board_content = #{qna_board_content} where qna_board_id = #{qna_board_id}
+	</update>
+	<delete id="delete">
+		delete from qna_board 
+		<choose>
+			<when test="qna_board_reply_state == 2">
+				where qna_board_id = #{qna_board_id}
+			</when>
+			<otherwise>
+				where qna_board_group_no = #{qna_board_group_no}
+			</otherwise>
+		</choose>	
+	</delete>
+	<update id="updateReplyState">
+		update qna_board set qna_board_reply_state = 
+		<choose>
+			<when test="qna_board_reply_state == 2">
+				0 where qna_board_reply_state = 1 and qna_board_group_no = #{qna_board_group_no}
+			</when>
+			<otherwise>
+				1 where qna_board_id = #{qna_board_id}
+			</otherwise>
+		</choose>
+	</update>
+	<insert id="insert">
+		<choose>
+			<when test="product_id == 0">
+				insert into qna_board(qna_board_id, member_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state) 
+				values(qna_board_seq.nextval, 'admin',#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},#{qna_board_id},2)
+			</when>
+			<otherwise>
+				insert into qna_board(qna_board_id, member_id, product_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state) 
+				values(qna_board_seq.nextval, 'admin',#{product_id},#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},#{qna_board_id},2)
+			</otherwise>
+		</choose>
+	</insert>
+</mapper>

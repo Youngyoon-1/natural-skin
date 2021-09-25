@@ -16,7 +16,7 @@
 	<div id="btns">
 		<div>
 			<div class="front"><div><img src="images/a-member-logo.png"/></div>회원관리</div>
-			<a href="aMemberMain"><p>일반회원수: <span>10</span>명<br>관리자: <span>2</span>명</p></a>
+			<a href="aMemberMain"><p>일반회원수: <span>1000</span>명<br>관리자: <span>1</span>명</p></a>
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>게시글관리<div><span>New!</span></div></div>

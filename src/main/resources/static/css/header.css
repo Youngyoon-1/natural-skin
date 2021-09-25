@@ -21,6 +21,9 @@ a{
     padding-right: 5px;
     align-items: center;
    	height: 40px;
+   	width:100%;
+   	position: fixed;
+   	top:0;
 }
 .dropdown{
 	display: inline-block;

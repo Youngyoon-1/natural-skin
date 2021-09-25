@@ -12,6 +12,7 @@
     display:inline-block;
 }
 h1{
+	padding-top: 40px;
     margin: 50px;
     font-size: 50px;
 }
@@ -65,4 +66,12 @@ tr:hover:not(#first-tr){
 }
 button:hover{
 	cursor: pointer;
+}
+#selectCountPerPage{
+	text-align: right;
+	margin-right: 65px;
+	margin-bottom: 2px;
+}
+.bold{
+	font-weight: bold;
 }

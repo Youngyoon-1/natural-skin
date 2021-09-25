@@ -30,7 +30,7 @@ input, select{
 	border:none;
 	padding-left: 3px;
 }
-input:not(#id), select{
+input:not(#id,#member_name), select{
 	width:90%;
 	height: 31px;
 	border:none;

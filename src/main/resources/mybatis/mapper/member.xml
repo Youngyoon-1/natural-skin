@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.MemberDao">
+	<select id="findById" resultType="com.naturalskin.dto.MemberDto">
+		select * from member where member_id = #{member_id} order by member_date
+	</select>
+	<select id="findMemberList" resultType="com.naturalskin.dto.MemberDto">
+		select * from (
+			select rownum as rn, a.* from (
+				select * from member
+				<choose>
+					<when test="memberDto.findBy == 'member_id'">where member_id = #{memberDto.member_id}</when>
+					<when test="memberDto.findBy == 'member_name'">where member_name = #{memberDto.member_name}</when>
+					<when test="memberDto.findBy == 'member_role'">where member_role = #{memberDto.member_role}</when>
+				</choose>
+				order by member_idx desc
+			)a
+		)
+		where rn between 1 + #{pagingDto.countPerPage} * (#{pagingDto.page} - 1) and #{pagingDto.countPerPage} * #{pagingDto.page}
+	</select>
+	<select id="findMemberCount" resultType="int">
+		select count(*) from member 
+		<choose>
+			<when test="findBy == 'member_id'">where member_id = #{member_id}</when>
+			<when test="findBy == 'member_name'">where member_name = #{member_name}</when>
+			<when test="findBy == 'member_role'">where member_role = #{member_role}</when>
+		</choose>
+	</select>
+	<update id="modify">
+		update member set member_pw=#{member_pw}, 
+		member_name=#{member_name},
+		member_year=#{member_year},
+		member_month=#{member_month},
+		member_day=#{member_day},
+		member_gender=#{member_gender},
+		member_address=#{member_address},
+		member_address_detail=#{member_address_detail},
+		member_phone=#{member_phone},
+		member_email=#{member_email}
+		 where member_id=#{member_id}
+	</update>
+	<delete id="deleteById">
+		delete from member where member_id = #{member_id}
+	</delete>
+
+</mapper>

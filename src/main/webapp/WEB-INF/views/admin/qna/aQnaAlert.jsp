@@ -14,7 +14,7 @@
 	<main>
 		<p>해당 게시물을 삭제하시겠습니까?</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button type="button" onclick="alert('해당 게시물이 삭제되었습니다.'); location.href='aQnaDelete'">확인</button>
+		<button type="button" onclick="location.href='aQnaDelete?qna_board_id=${param.qna_board_id}&qna_board_reply_state=${param.qna_board_reply_state}&qna_board_group_no=${param.qna_board_group_no}'">확인</button>
 	</main>
 </body>
 </html>

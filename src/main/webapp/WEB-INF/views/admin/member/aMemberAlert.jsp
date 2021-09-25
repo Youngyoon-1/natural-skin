@@ -13,10 +13,10 @@
 	<header><h3>회원탈퇴</h3></header>
 	<main>
 		<p>정말 탈퇴하시겠습니까?<br>
-		(탈퇴시 모든 게시물과 댓글이 삭제되오니 유의바랍니다.)
+		(탈퇴 시 회원의 모든 게시물과 댓글이 삭제되오니 유의 바랍니다.)
 		</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button type="button" onclick="alert('회원탈퇴 되었습니다.'); location.href='aMemberDelete';">확인</button>
+		<button type="button" onclick="location.href='aMemberDelete?member_id=<%=request.getParameter("member_id")%>';">확인</button>
 	</main>
 </body>
 </html>
