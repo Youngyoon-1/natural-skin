@@ -1,0 +1,66 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+    text-align: center;
+}
+.mainImg {
+	width: 100%;
+}
+.basketImg {
+	width: 100px;
+	height: 100px;
+	vertical-align: middle;
+	margin-right: 5px; 
+}
+h1{
+    margin: 50px;
+    font-size: 50px;
+}
+hr{
+	margin-left: 40px;
+    margin-right: 40px;
+}
+table{
+	width:85%;
+	margin: 10px auto;
+	border-collapse: collapse;
+}
+td{
+	padding: 10px;
+	width: 20%;
+}
+
+td:last-child {
+	width: 10%;
+}
+
+tr {
+	border-bottom:.5px solid #7B7C95;
+}
+
+th, tr {
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.pay tr:last-child {
+	border-bottom:.5px solid #ffffff;
+}
+
+button{
+	letter-spacing: .5px;
+	padding: 2px;
+	margin: 10px;
+}
+#btns{
+	display: flex;
+	justify-content: center;
+	margin-top: 6px;
+}
+button:hover{
+	cursor: pointer;
+}

@@ -1,0 +1,75 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+    text-align: center;
+}
+.mainImg {
+	width: 100%;
+}
+table{
+	width:85%;
+	margin: 10px auto;
+	border-collapse: collapse;
+}
+ th, td{
+	border-bottom:.5px solid #7B7C95;
+	padding: 10px;
+}
+tr:hover:not(#first-tr){
+	background-color: #f2f2f2;
+	opacity: .7;
+	cursor: pointer;
+	transition-duration: .2s;
+}
+button:hover{
+	cursor: pointer;
+}
+#btns{
+    margin: 50px;
+    display:inline-block;
+}
+h1{
+    margin: 50px;
+    font-size: 50px;
+}
+hr{
+	margin-left: 50px;
+    margin-right: 50px;
+}
+#btns > div{
+	position: relative;
+  	float: left;
+    height: 295px;
+    width: 295px;
+    background-color: #F1F1F1;
+    margin: 20px;
+}
+.front{
+	left: 40%;
+	position: absolute;
+	top: 50%;margin-top: -50px;
+}
+.p{
+	position: absolute;
+	top: 50%;margin-top: -50px;
+	left: 35%;margin-left:-29px;
+	opacity: 0;
+	font-size: 19px;
+}
+#btns > div:hover .hover{
+	opacity: .1;
+}
+#btns > div:hover p{
+	transition : .2s ease-in-out;
+	opacity: 1;
+}
+.myPageMain:hover{
+    text-decoration: underline;
+}
+p > a{
+	font-size: 25px;
+}
