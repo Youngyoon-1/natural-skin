@@ -35,7 +35,7 @@ public class AdminControllerJoo {
 	public String adminWriteAlert() {
 		return "admin/qna/alert2";
 	}
-	
+
 
 	// Q&A 답변 View
 	@RequestMapping("aQnaReply")

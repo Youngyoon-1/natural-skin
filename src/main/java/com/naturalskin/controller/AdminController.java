@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@Controller
+//@Controller
 public class AdminController {
 	
 	@RequestMapping("/")
@@ -102,10 +102,12 @@ public class AdminController {
 	}
 	@RequestMapping("aProductV")
 	public String productV() {
+		
 		return "admin/product/aProductV";
 	}
 	@RequestMapping("aProductAlert")
 	public String productAlert() {
 		return "admin/product/aProductAlert";
+	}		
 	}
-}
+

@@ -1,0 +1,94 @@
+@charset "UTF-8";
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+    
+      text-decoration: none;
+      color: #5a5a5a;
+    }
+    a:link {
+       text-decoration: none; 
+      color: #5a5a5a;
+    }
+    a:hover {
+     text-decoration: none; 
+      color: #5a5a5a;
+    }
+ 
+    /* 로그인 시작 */
+    .login {
+      text-align: center; height: 507px; margin-bottom: 50px;
+    }
+    .login-text1 {
+      font-size: 36px; font-weight: 500;
+      color: #222; margin: 50px 0 0;
+    }
+    .login-text2 {
+      font-size: 13px;
+      color: #999;
+      margin: 5px 0 45px;
+    }
+    .login-box {
+    background-color:#f6f6f6;
+      border: 1px solid #ebebeb;
+      width: 700px;
+      height: 250px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    .login-form {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      padding: 30px 0 0 0;
+      margin-right:150px;
+    }
+    .login-input div {
+    vertical-align: middle;
+      width: 700px;
+      height: 100px;
+      margin:3px;
+      margin-left:150px;
+    }
+    .login-id {
+      padding-right: 10px;
+      text-align: right;
+      font: bold 12px dotum;
+      color: #555;
+      vertical-align: middle;
+      line-height: 24px;
+    }
+    .box {
+    
+      width: 500px;
+      height: 70px;
+      border: 1px solid #cdcdcd;
+      background-color: #f6f6f6;
+    }
+    .box:focus {
+      outline: none;
+    }
+    .login-img {
+    width: 700px;
+      height: 23px;
+      padding-left: 15px;
+    }
+    #login-submit{
+    width:130px;
+    height:50px;
+    }
+    #join-submit{
+    margin-top:50px;
+    width:300px;
+    }
+
+    #login{
+    width:100%;
+    height:462px;
+    }
+    #id-check{
+   	padding:10px;
+   	margin-left:50px;
+    }

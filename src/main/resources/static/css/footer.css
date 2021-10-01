@@ -1,0 +1,21 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+}
+​
+#footer{
+    background-color: #E9E9E9;
+    display: flex;
+    height: 150px;
+    justify-content:space-around;
+    align-items: center;
+}
+​
+#footer > p >span{
+	font-size: 24px;
+	font-weight: bold;
+}

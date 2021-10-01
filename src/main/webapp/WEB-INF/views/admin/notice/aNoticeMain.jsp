@@ -31,19 +31,15 @@
 		<th>아이디</th>
 		<th>작성일</th>
 	</tr>
-	<tr onclick="window.open('aNoticeV','child_window','width=650, height=500')">
-		<td>1</td>
-		<td>공지사항1입니다</td>
-		<td>admin1</td>
-		<td>2020-09-23</td>
+	<c:forEach var="dto" items="${ list }" >
+	<tr onclick="window.open('aNoticeV','child_window','width=650, height=500')">	
+		<td>${dto.notice_board_id }</td>
+		<td>${dto.notice_board_title }</td>
+		<td>${dto.member_id} </td>
+		<td>${dto.notice_board_date} </td>
 	</tr>
-	<tr onclick="window.open('aNoticeV','child_window','width=650, height=500')">
-		<td>2</td>
-		<td>공지사항2입니다</td>
-		<td>admin2</td>
-		<td>2020-09-23</td>
-	
-	</tr>
+	</c:forEach>
+
 	</table>
 	<button id="button1" type="button" onClick="location.href='aMain'">메인으로</button>
 	<button id="button2" type="button" onClick="window.open('aNoticeW','','width=650, height=500')">글쓰기</button>

@@ -1,7 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ page import="com.naturalskin.dto.MemberDto" %>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="java.util.List"%>
+
+<%
+		List<MemberDto> list = (List<MemberDto>)request.getAttribute("list");
+		System.out.println( "list count:" + list.size() );
+		String list_page = (String)request.getAttribute("page");
+		System.out.println( "list_page:" + list_page );
+		String page1_active = "";
+		String page2_active = "";
+		String page3_active = "";
+		if(list_page.equals("1")) 
+			page1_active = "active";
+		if(list_page.equals("2")) 
+			page2_active = "active";
+		if(list_page.equals("3")) 
+			page3_active = "active";
+	%>
+	    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,29 +57,36 @@
 		<th>이름</th>
 		<th>가입일</th>
 	</tr>
+	<c:forEach var="dto" items="${ list }" >
 	<tr onclick="window.open('aMemberV','child_window','width=650, height=700')">
-		<td>1</td>
-		<td>일반회원</td>
-		<td>abcdfd</td>
-		<td>홍길동</td>
-		<td>2020-09-23</td>
+		<td>${dto.member_idx }</td>
+		<td>${dto.member_role }</td>
+		<td>${dto.member_id }</td>
+		<td>${dto.member_name }</td>
+		<td>${dto.member_date }</td>
 	</tr>
-	<tr onclick="window.open('aMemberV','child_window','width=650, height=700')">
-		<td>2</td>
-		<td>일반회원</td>
-		<td>safdfd</td>
-		<td>홍길동</td>
-		<td>2020-09-23</td>
-	</tr>
-		<tr onclick="window.open('aMemberV','child_window','width=650, height=700')">
-		<td>3</td>
-		<td>일반회원</td>
-		<td>safdfd</td>
-		<td>홍길동</td>
-		<td>2020-09-23</td>
-	</tr>
+	</c:forEach>
 	</table>
 	<button type="button" onClick="location.href='aMain'">메인으로</button>
 	<script src="js/admin/member/aMemberMain.js"></script>
+		<nav aria-label="...">
+	  	<ul class="pagination">
+		    <li class="page-item disabled">
+		      	<span class="page-link">Previous</span>
+		    </li>
+		    <li class="page-item <%= page1_active %>">
+		    	<a class="page-link"  href="list?page=1">1</a>
+		    </li>
+		    <li class="page-item <%= page2_active %>">
+		      	<a class="page-link" href="list?page=2">2</a>
+		    </li>
+		    <li class="page-item <%= page3_active %>">
+		    	<a class="page-link" href="list?page=3">3</a>
+		    </li>
+		    <li class="page-item">
+		      	<a class="page-link" href="#">Next</a>
+		    </li>
+	  	</ul>
+	</nav>
 </body>
 </html>
