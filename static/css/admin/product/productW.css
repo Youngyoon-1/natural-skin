@@ -1,0 +1,66 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 16px;
+}
+h2{
+	font-size: 25px;
+	margin: 15px;
+	margin-top: 20px;
+	text-align:center;
+}
+hr{
+	margin-left: 40px;
+    margin-right: 40px;
+}
+form{
+	margin-left: 40px;
+	margin-top: 15px;
+	text-align:left;
+}
+label, input, select{
+	margin: 3px;
+}
+input, select, textarea{
+	width:90%;
+	height: 31px;
+	border:none;
+	background-color: #f1f1f1;
+	padding-left: 3px;
+}
+textarea{
+	height:100px;
+}
+.second-hr{
+	margin-top: 15px;
+	margin-left: 0;
+}
+button{
+	letter-spacing: .5px;
+	padding: 2px;
+	margin: 10px;
+}
+#btns{
+	display: flex;
+	justify-content: center;
+	margin-top: 6px;
+}
+#search-address{
+	margin: 0;
+	font-size: 13px;
+}
+button:hover{
+	cursor: pointer;
+}
+span{
+	margin-left: 2px;
+	margin-right: 35px;
+}
+#second-hr{
+	margin-left: 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

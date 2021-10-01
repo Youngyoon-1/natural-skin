@@ -1,0 +1,180 @@
+@charset "UTF-8";
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    a {
+    
+      text-decoration: none;
+      color: #5a5a5a;
+    }
+    a:link {
+       text-decoration: none; 
+      color: #5a5a5a;
+    }
+    a:hover {
+     text-decoration: none; 
+      color: #5a5a5a;
+    }
+ 
+    /* 로그인 시작 */
+    .login {
+      text-align: center; height: 507px; margin-bottom: 50px;
+    }
+    .login-text1 {
+      font-size: 36px; font-weight: 500;
+      color: #222; margin: 50px 0 0;
+    }
+    .login-text2 {
+      font-size: 13px;
+      color: #999;
+      margin: 5px 0 45px;
+    }
+    .login-box {
+    background-color:#f6f6f6;
+      border: 1px solid #ebebeb;
+      width: 700px;
+      height: 250px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    .login-form {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      padding: 30px 0 0 0;
+      margin-right:150px;
+    }
+    .login-input div {
+    vertical-align: middle;
+      width: 700px;
+      height: 100px;
+      margin:3px;
+      margin-left:150px;
+    }
+    .login-id {
+      padding-right: 10px;
+      text-align: right;
+      font: bold 12px dotum;
+      color: #555;
+      vertical-align: middle;
+      line-height: 24px;
+    }
+    .box {
+    
+      width: 500px;
+      height: 70px;
+      border: 1px solid #cdcdcd;
+      background-color: #f6f6f6;
+    }
+    .box:focus {
+      outline: none;
+    }
+    .login-img {
+    width: 700px;
+      height: 23px;
+      padding-left: 15px;
+    }
+    #login-submit{
+    width:130px;
+    height:50px;
+    }
+    .label{
+    text-align:left;
+    font-size: 36px;
+    }
+    #join-submit{
+    margin-top:50px;
+    width:300px;
+    }
+
+    #login{
+    width:100%;
+    height:462px;
+    }
+    #id-check{
+   	padding:10px;
+   	margin-left:50px;
+    }
+    
+
+    
+    .main {
+  padding: 15px;
+}
+table {
+  width: 100%;
+}
+table tr:nth-child(1) {
+	text-align:center;
+  color: #fff;
+  font-weight: bold;
+  height: 200px;
+ 
+}
+table tr:nth-child(1) td {
+   font-size: 36px;
+}
+table tr:nth-child(2) td {
+	text-align:center;
+  font-size: 36px;
+  padding-top: 20px;
+}
+table tr:nth-child(3) {
+  height: 80px;
+  background-color: rgb(253, 242, 232);
+}
+table tr:nth-child(3) img {
+  padding-left: 10px;
+}
+input[type="text"] {
+  height: 32px;
+  text-align: left;
+  font-size: 24px;
+   background-color: rgb(236, 236, 236);
+}
+div div:nth-child(2) {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+div div:nth-child(3) {
+  text-align: right;
+ 
+}
+.em {
+  width: 400px;
+}
+.td1{
+	margin-top:50px;
+	text-align:center;
+	margin-left:60%;
+}
+.tr1{
+	text-align:center;
+	margin:10px
+}
+.td2{
+	text-align:left;
+}
+#submit{
+	height:50px;
+	text-align:center;
+}
+.ok{
+	width:130px;
+	height:50px;
+}
+.id-find{
+	height:31.5px;
+    font-size: 31.5px;
+    text-align:right;
+    }
+    
+#id-find{
+	width:50px;
+	height:25px;
+}
+h3{
+	height:50px;
+}
