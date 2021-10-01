@@ -34,7 +34,7 @@
     
         
        <div class="login-img"><!--<input type="image" src="http://bdmp-004.cafe24.com/bizdemo99969/img/member/btn_login.gif">-->
-        	<input  TYPE="IMAGE" src="images/login.gif" id="login-submit" value="Submit"  align="absmiddle">
+        	<input  TYPE="submit" id="login-submit" value="로그인"  formaction="#"  align="absmiddle">
         </div>
                
         </div>
@@ -45,7 +45,7 @@
        회원이 아니신가요?<br>
        고객님만을 위한 다양한 혜택이 준비되어있습니다.<br>
         <div class="join-img">
-        	<input  TYPE="IMAGE" src="images/join.gif" id="join-submit" value="Submit"  align="absmiddle">
+        	<input  TYPE="submit" src="images/join.gif" id="join-submit" value="회원가입"  formaction="join" align="absmiddle">
         </div>
          
       </div>
