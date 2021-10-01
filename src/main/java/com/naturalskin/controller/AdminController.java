@@ -1,22 +1,36 @@
 package com.naturalskin.controller;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.annotation.MultipartConfig;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.naturalskin.dto.MemberDto;
+import com.naturalskin.dto.NoticeDto;
 import com.naturalskin.dto.OrderDto;
 import com.naturalskin.dto.PagingDto;
+import com.naturalskin.dto.ProductDto;
 import com.naturalskin.dto.QnaDto;
+import com.naturalskin.service.FileService;
 import com.naturalskin.service.MemberService;
+import com.naturalskin.service.NoticeService;
 import com.naturalskin.service.OrderService;
+import com.naturalskin.service.ProductService;
 import com.naturalskin.service.QnaService;
 
 @Controller
@@ -25,11 +39,18 @@ public class AdminController {
 	final private MemberService memberService;	
 	final private OrderService orderService;	
 	final private QnaService qnaService;
+	final private ProductService productService;
+	final private FileService fileService;
+	final private NoticeService noticeService;
 	
-	private AdminController(MemberService memberService, OrderService orderService, QnaService qnaService) {
+	
+	private AdminController(MemberService memberService, OrderService orderService, QnaService qnaService, ProductService productService, FileService fileService,NoticeService noticeService) {
 		this.memberService = memberService;
 		this.orderService = orderService;
 		this.qnaService = qnaService;
+		this.productService = productService;
+		this.fileService = fileService;
+		this.noticeService = noticeService;
 	}
 	
 	@RequestMapping("/")
@@ -37,7 +58,22 @@ public class AdminController {
 		return "index";
 	}
 	@RequestMapping("aMain")
-	public String aMain() {
+	public String aMain(Model model,MemberDto memberDto,QnaDto qnaDto, OrderDto orderDto) {
+		memberDto.setFindBy("member_role");
+		memberDto.setMember_role(0);
+		model.addAttribute("memberCount", memberService.findMemberCount(memberDto));
+		memberDto.setMember_role(1);
+		model.addAttribute("adminCount", memberService.findMemberCount(memberDto));
+		qnaDto.setFindBy("qna_board_reply_state");
+		qnaDto.setQna_board_reply_state(0);
+		model.addAttribute("newNoticeCount", qnaService.findQnaCount(qnaDto));
+		orderDto.setFindBy("member_order_state");
+		orderDto.setMember_order_state("배송준비중");
+		model.addAttribute("newOrderCount", orderService.findOrderCount(orderDto));
+		orderDto.setMember_order_state("주문취소요청");
+		model.addAttribute("cancelReqCount", orderService.findOrderCount(orderDto));
+		model.addAttribute("productCount", productService.getCountOf(null));
+		
 		return "admin/aMain";
 	}
 	@RequestMapping("aMemberMain")
@@ -214,32 +250,222 @@ public class AdminController {
 		+ "</script>";
 	}
 	@RequestMapping("aNoticeMain")
-	public String aNoticeMain() {
+	public String aNoticeMain(Model model, NoticeDto noticeDto, PagingDto pagingDto) {
+		pagingDto.init(noticeService.countNotice(noticeDto));
+		model.addAttribute("noticeList", noticeService.findBy(noticeDto,pagingDto));
 		return "admin/notice/aNoticeMain";
 	}
 	@RequestMapping("aNoticeW")
 	public String aNoticeW() {
 		return "admin/notice/aNoticeW";
 	}	
+	@RequestMapping("aNoticeWrite")
+	@ResponseBody
+	public String aNoticeWrite(NoticeDto noticeDto) {
+		int result = noticeService.write(noticeDto);
+		if( result == 1) {
+			return "<script>"
+					+ "alert('공지사항이 등록됐습니다.');"
+					+ "window.close();"
+					+ "opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+		+ "alert('공지사항 등록에 실패했습니다.');"
+		+ "window.location.href='aProductW';"
+		+ "</script>";
+	}
 	@RequestMapping("aNoticeV")
-	public String aNoticeV() {
+	public String aNoticeV(NoticeDto noticeDto, Model model) {
+		model.addAttribute("notice", noticeService.findById(noticeDto));
 		return "admin/notice/aNoticeV";
+	}
+	@RequestMapping("aNoticeModify")
+	@ResponseBody
+	public String aNoticeModify(NoticeDto noticeDto) {
+		System.out.println(noticeDto.getNotice_board_id());
+		int result = noticeService.modify(noticeDto);
+		if( result == 1) {
+			return "<script>"
+					+ "alert('공지사항이 수정됐습니다.');"
+					+ "window.location.href='aNoticeV?notice_board_id="
+					+  noticeDto.getNotice_board_id() +"';"
+					+ "opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+		+ "alert('공지사항 수정에 실패했습니다.');"
+		+ "window.location.href='aNoticeV?notice_board_id="
+		+  noticeDto.getNotice_board_id() +"';"
+		+ "</script>";
 	}
 	@RequestMapping("noticeAlert")
 	public String noticeAlert() {
 		return "admin/notice/noticeAlert";
 	}
+	@RequestMapping("aNoticeDelete")
+	@ResponseBody
+	public String aNoticeDelete(NoticeDto noticeDto) {
+		int result = noticeService.delete(noticeDto);
+		if( result == 1) {
+			return "<script>"
+					+ "alert('공지사항이 삭제됐습니다.');"
+					+ "window.close();"
+					+ "opener.close();"
+					+ "opener.opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+		+ "alert('공지사항 삭제에 실패했습니다.');"
+		+ "window.close();"
+		+ "opener.location.href='aNoticeV?notice_board_id="
+		+  noticeDto.getNotice_board_id() +"';"
+		+ "</script>";
+	}
 	@RequestMapping("aProductMain")
-	public String productMain() {
+	public String productMain(Model model,ProductDto productDto,PagingDto pagingDto) {
+		pagingDto.init(productService.getCountOf(productDto));
+		model.addAttribute("productList", productService.findBy(productDto, pagingDto));
 		return "admin/product/aProductMain";
 	}
 	@RequestMapping("aProductW")
 	public String productW() {
 		return "admin/product/aProductW";
 	}
+	@RequestMapping("aProductWrite")
+	@ResponseBody
+	public String aProductWrite(
+			List<MultipartFile> mainImgs,
+			List<MultipartFile> contentImgs,
+			ProductDto productDto) throws IOException{
+		productDto.setProduct_img_path(fileService.save(mainImgs,"product"));
+		productDto.setProduct_content_img_path(fileService.save(contentImgs,"product"));
+		int result = productService.save(productDto);
+		if( result == 1) {
+			return "<script>"
+					+ "alert('상품등록이 완료됐습니다.');"
+					+ "window.close();"
+					+ "opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+		+ "alert('상품등록이 실패했습니다.');"
+		+ "window.location.href='aProductW';"
+		+ "</script>";
+	}
 	@RequestMapping("aProductV")
-	public String productV() {
+	public String productV(Model model, ProductDto productDto) {
+		model.addAttribute("product", productService.findById(productDto));
 		return "admin/product/aProductV";
+	}
+	
+	@RequestMapping("aProductDelImg")
+	@ResponseBody
+	public String aProductDelImg(
+			@RequestParam("delImgPath") String delImgPath,
+			ProductDto productDto) {
+		int result = productService.deleteImg(productDto);
+		if(result == 1) {				//성공시 파일삭제
+			fileService.delete(delImgPath);
+			return "<script>"
+					+ "window.location.href='/aProductV?product_id="
+					+ productDto.getProduct_id() + "';"
+					+ "opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+				+ "window.location.href='/aProductV?product_id="
+				+ productDto.getProduct_id() + "';"
+				+ "</script>";
+	}
+	@RequestMapping("aProductDelContentImg")
+	@ResponseBody
+	public String aProductDelContentImg(
+			@RequestParam("delImgPath") String delImgPath,
+			ProductDto productDto) {
+		int result = productService.deleteContentImg(productDto);
+		if(result == 1) {				//성공시 파일삭제
+			fileService.delete(delImgPath);
+			return "<script>"
+					+ "window.location.href='/aProductV?product_id="
+					+ productDto.getProduct_id() + "';"
+					+ "opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+				+ "window.location.href='/aProductV?product_id="
+				+ productDto.getProduct_id() + "';"
+				+ "</script>";
+	}
+	@RequestMapping("aProductModify")
+	@ResponseBody
+	public String aProductModify(
+			List<MultipartFile> mainImgs,
+			List<MultipartFile> contentImgs,
+			ProductDto productDto) throws IOException {
+		
+			String originImgPath = productService.findImgPath(productDto);
+			System.out.println(originImgPath);
+			String savePath = fileService.save(mainImgs,"product");
+			if(originImgPath == null || originImgPath.equals("")) {
+				System.out.println("통과");
+				productDto.setProduct_img_path(savePath);
+			}else if(savePath == null || savePath.equals("")) {
+				System.out.println(originImgPath);
+				productDto.setProduct_img_path(originImgPath);
+			}else {
+				productDto.setProduct_img_path(originImgPath + "," + savePath);
+			}
+			
+			String originContentImgPath = productService.findContentImgPath(productDto);
+			System.out.println(originContentImgPath);
+			savePath = fileService.save(contentImgs,"product");
+			if(originContentImgPath == null || originContentImgPath.equals("")) {
+				System.out.println("통과");
+				productDto.setProduct_content_img_path(savePath);
+			}else if(savePath == null || savePath.equals("")){
+				productDto.setProduct_content_img_path(originContentImgPath);
+				System.out.println(originContentImgPath);
+			}else{
+				productDto.setProduct_content_img_path(originContentImgPath + "," + savePath);
+			}
+			
+			int result = productService.modify(productDto);
+			
+			if( result == 1) {
+				return "<script>"
+						+ "alert('상품수정이 완료됐습니다.');"
+						+ "window.location.href='/aProductV?product_id="
+						+ productDto.getProduct_id() + "';"
+						+ "opener.location.reload();"
+						+ "</script>";
+			}
+			return "<script>"
+			+ "alert('상품수정에 실패했습니다.');"
+			+ "window.location.href='/aProductV?product_id="
+			+ productDto.getProduct_id() + "';"
+			+ "</script>";
+	}
+	@RequestMapping("aProductDelete")
+	@ResponseBody
+	public String aProductDelete(ProductDto productDto) {
+		fileService.delete(productService.findImgPath(productDto));
+		fileService.delete(productService.findContentImgPath(productDto));
+		int result = productService.delete(productDto);
+		if( result == 1) {
+			return "<script>"
+					+ "alert('상품이 삭제되었습니다.');"
+					+ "window.close();"
+					+ "opener.close();"
+					+ "opener.opener.location.reload();"
+					+ "</script>";
+		}
+		return "<script>"
+		+ "alert('상품삭제에 실패했습니다.');"
+		+ "window.close();"
+		+ "oneper.location.href='/aProductV?product_id="
+		+ productDto.getProduct_id() + "';"
+		+ "</script>";
 	}
 	@RequestMapping("aProductAlert")
 	public String productAlert() {

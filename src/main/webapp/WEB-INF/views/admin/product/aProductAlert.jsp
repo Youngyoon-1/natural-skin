@@ -16,7 +16,7 @@
 		<p>해당 상품을 삭제하시겠습니까?
 		</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button onclick="javascript:btn()" type="">확인</button>
+		<button onclick="location.href='aProductDelete?product_id=${param.product_id}'">확인</button>
 	</main>
 </body>
 </html>

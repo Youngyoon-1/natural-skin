@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.NoticeDao">
+	<select id="findBy" resultType="com.naturalskin.dto.NoticeDto">
+		select * from (
+			select rownum as rn, a.* from (
+				select * from notice_board 
+				<choose>
+					<when test="noticeDto.findBy == 'member_id'">
+						where member_id = #{noticeDto.member_id}
+					</when>
+					<when test="noticeDto.findBy == 'notice_board_title'">
+						where notice_board_title = #{noticeDto.notice_board_title}
+					</when>
+				</choose>
+				order by notice_board_id desc
+			)a
+		) where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
+	</select>
+	<select id="countNotice" resultType="int">
+		select count(*) from notice_board
+		<choose>
+			<when test="findBy == 'member_id'">
+				where member_id = #{member_id}
+			</when>
+			<when test="findBy == 'notice_board_title'">
+				where notice_board_title = #{notice_board_title}
+			</when>
+		</choose>
+	</select>
+	<select id="findById" resultType="com.naturalskin.dto.NoticeDto">
+		select * from notice_board where notice_board_id = #{notice_board_id}
+	</select>
+	<insert id="write">
+		insert into notice_board(notice_board_id,member_id,notice_board_title,notice_board_content)
+			values(notice_board_seq.nextval,'admin',#{notice_board_title},#{notice_board_content});
+	</insert>
+	<update id="modify">
+		update notice_board set notice_board_title = #{notice_board_title},
+			notice_board_content = #{notice_board_content}
+			where notice_board_id = #{notice_board_id}
+	</update>
+	<delete id="delete">
+		delete from notice_board where notice_board_id = #{notice_board_id}
+	</delete>
+</mapper>

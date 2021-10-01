@@ -16,19 +16,19 @@
 	<div id="btns">
 		<div>
 			<div class="front"><div><img src="images/a-member-logo.png"/></div>회원관리</div>
-			<a href="aMemberMain"><p>일반회원수: <span>1000</span>명<br>관리자: <span>1</span>명</p></a>
+			<a href="aMemberMain"><p>일반회원수: <span>${memberCount}</span>명<br>관리자: <span>${adminCount}</span>명</p></a>
 		</div>
 		<div>
-			<div class="front"><div><img src="images/task.png"/></div>게시글관리<div><span>New!</span></div></div>
-			<p class="p"><a class="aMain" href="aNoticeMain">공지사항관리</a><br><a class="aMain" href="aQnaMain">Q&A관리(새로운 <span>2</span>건)</a></p>
+			<div class="front"><div><img src="images/task.png"/></div>게시글관리<div><span style="display:${(newNoticeCount==0)?'none':''}">New!</span></div></div>
+			<p class="p"><a class="aMain" href="aNoticeMain">공지사항관리</a><br><a class="aMain" href="aQnaMain">Q&A관리(새로운 <span>${newNoticeCount}</span>건)</a></p>
 		</div>
 		<div>
-			<div class="front"><div><img src="images/task.png"/></div>주문관리<div><span>New!</span></div></div>
-			<p class="p"><a class="aMain" href="aOrderMain">신규주문(새로운 <span>2</span>건)</a><br><a class="aMain" href="/">취소요청(새로운 <span>2</span>건)</a></p>
+			<div class="front"><div><img src="images/task.png"/></div>주문관리<div><span style="display:${(newOrderCount==0 && cancelReqCount==0)?'none':''}">New!</span></div></div>
+			<a id="orderAnchor" href="aOrderMain"><p class="p">신규주문(새로운 <span>${newOrderCount}</span>건)<br>취소요청(새로운 <span>${cancelReqCount}</span>건)</p></a>
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>상품관리</div>
-			<a href="aProductMain"><p>판매중인상품: <span>4</span>개</p></a>
+			<a href="aProductMain"><p>판매중인상품: <span>${productCount}</span>개</p></a>
 		</div>
 	</div>
 </body>

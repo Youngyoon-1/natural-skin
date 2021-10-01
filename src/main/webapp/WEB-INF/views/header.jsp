@@ -17,9 +17,9 @@
 			</a>
 			<a class="header" href="brand">Brand</a>
 			<div class="dropdown">
-				<a class="header" href="brand">Product</a>
+				<a class="header" href="productMain">Product</a>
 				<div class="dropdown-content">
-					<a class="header" href="/">모든제품</a>
+					<a class="header" href="productMain">모든제품</a>
 					<a class="header">클렌저</a>
 					<a class="header">로션&크림</a>
 					<a class="header">앰플&세럼</a>

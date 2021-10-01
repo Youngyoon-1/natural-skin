@@ -1,0 +1,169 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+	}
+	a{
+	padding: 10px;
+    text-decoration: none;
+    letter-spacing: 0.4px;
+	}
+	div{
+	text-align: center;
+	}
+	#indexImg{
+		width: 100%;
+	}
+	h1{
+		padding-top: 90px;
+		font-size: 70px;
+	}
+	.mainHr{
+		margin-bottom: 30px;
+		margin: 40px;
+	}
+	#productDiv{
+		display:flex;
+		justify-content: center;
+	}
+	.imgDiv > img{
+		width: 70%;
+	}
+	.imgDiv{
+		width: 700px;
+	}
+	form{
+		width: 30%;
+	}
+	form p{
+		text-align: left;
+		font-size: 20px;
+		line-height: 35px;
+	}
+	#totalPrice{
+		text-align: right;
+	}
+	#productDiv label,#productDiv span:not(#productTitle,.price,#price),#productDiv button{
+		font-size: 20px;
+	}
+	#productDiv hr{
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	#productDiv button{
+		margin-top: 25px;
+		padding: 5px;
+		margin-right: 40px;
+		width: 120px;
+	}
+	#productDiv input{
+		font-size: 20px;
+	}
+	#price{
+		font-size: 25px;
+	}
+	.price{
+		font-size: 25px;
+	}
+	#productTitle{
+		font-weight: bold;
+		font-size: 30px;
+	}
+	.productNav{
+		margin-right: 80px;
+		margin-left: 80px;
+	}
+	.productContent{
+		font-size: 20px;
+		line-height: 35px;
+	}
+	.productTitle{
+		text-align: left;
+		line-height: 50px;
+		margin-left: 130px;
+	}
+	h5{
+		font-size: 20px;
+	}
+	#productInfo2{
+		display: flex;
+		justify-content: space-evenly;
+		margin-right: 50px;
+		margin-left: 50px;
+	}
+	#productInfo2 > p{
+		width:550px;
+		text-align: left;
+		line-height: 53px;
+	}
+	#productInfo2 > p span{
+		font-size:19px;
+	}
+	.purchaseGuide{
+		display: flex;
+		justify-content: space-evenly;
+		margin-right: 50px;
+		margin-left: 50px;
+	}
+	.purchaseGuide div > p,.purchaseGuide div > h5{
+		text-align: left;
+		width: 500px;
+	}
+	#reviewBtn{
+		margin-right: 85px;
+	}
+	.review{
+		display: flex;
+		justify-content: space-between;
+		margin-right: 85px;
+		margin-left: 85px;
+	}
+	.reveiwHr{
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-right: 80px;
+		margin-left: 80px;
+	}
+	.reviewContent{
+		text-align: left;
+		margin-left: 85px;
+	}
+	.reviewContent > a{
+		margin: 0;
+   		padding: 0;
+	}
+	table{
+		width:85%;
+		margin: 10px auto;
+		border-collapse: collapse;
+		margin-bottom: 70px;
+	}
+	th, td{
+		padding: 10px;
+	}
+	tr > td:nth-child(2):hover {
+		opacity: .7;
+		cursor: pointer;
+		transition-duration: .2s;
+	}
+	tr {
+		border-bottom:.5px solid #7B7C95;
+	}
+	img {
+		vertical-align:middle;
+	}
+	#lock {
+		width: 20px;
+		height: 20px;
+	}
+	#re {
+		width: 30px;
+		height: 15px;
+		padding-bottom: 3px;
+		padding-right: 3px;
+	}
+	#howToThrow{
+		font-size: 25px;
+	}

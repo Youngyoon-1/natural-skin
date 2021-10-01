@@ -16,8 +16,8 @@
 		<p>해당 게시물을 삭제하시겠습니까?
 		</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button onclick="javascript:btn()" type="">확인</button>
+		<button onclick="location.href='aNoticeDelete?notice_board_id=${param.notice_board_id}'">확인</button>
 	</main>
-	<script src="js/admin/notice/noticeAlert.js"></script>
+	<!-- <script src="js/admin/notice/noticeAlert.js"></script> -->
 </body>
 </html>

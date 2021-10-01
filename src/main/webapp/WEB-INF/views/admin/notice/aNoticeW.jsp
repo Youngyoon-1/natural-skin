@@ -13,16 +13,15 @@
 <body>
 	<h2>공지사항 작성하기</h2>
 	<hr style="border: solid 2px;">
-	<form action="">
+	<form action="aNoticeWrite">
 		<label id="title_label">제목</label>
-		<input id="" value="" type="text">
+		<input id="" name="notice_board_title" value="" type="text">
 		<hr style="border: solid 1px;">	
-		<textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)">
-		</textarea>
+		<textarea id="content" name="notice_board_content"></textarea>
 		<hr style="border: solid 1px;">
 		<div id="btns">
 			<button type="button" onclick="window.close();">취소</button>
-			<button onclick="javascript:btn()" type="submit">글쓰기</button>
+			<button type="submit">글쓰기</button>
 		</div>
 	</form>
 	<script src="js/admin/notice/aNoticeW.js"></script>

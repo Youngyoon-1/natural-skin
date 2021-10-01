@@ -18,18 +18,20 @@ create table member(
 
 insert into member(member_id, member_pw, member_name, member_role) VALUES('admin', '1234', '관리자', 1);
 
-
 create table notice_board(
-    notice_board_id number(3) primary key,
-    member_id VARCHAR2(20 CHAR),
-    notice_board_title varchar2(50 char),
-    notice_board_content varchar2(500 char),
-    notice_board_date date,
-    notice_board_hit number(4),
+    notice_board_id number primary key,
+    member_id VARCHAR2,
+    notice_board_title varchar2,
+    notice_board_content varchar2,
+    notice_board_date date default sysdate,
+    notice_board_hit number default 0,
     constraint fk_notice_board foreign key(member_id)
     references member(member_id) ON DELETE CASCADE 
 );
 create sequence notice_board_seq;
+
+insert into notice_board(notice_board_id,member_id,notice_board_title)
+values(notice_board_seq.nextval,'admin','공지사항1입니다.');
 
 create table product(
     product_id number primary key,

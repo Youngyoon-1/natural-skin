@@ -21,6 +21,7 @@
 			<when test="findBy == 'member_id'">where member_id = #{member_id}</when>
 			<when test="findBy == 'member_name'">where member_name = #{member_name}</when>
 			<when test="findBy == 'member_order_id'">where member_order_id = #{member_order_id}</when>
+			<when test="findBy == 'member_order_state'">where member_order_state = #{member_order_state}</when>
 		</choose>
 	</select>
 	<select id="findById" resultType="com.naturalskin.dto.OrderDto">
