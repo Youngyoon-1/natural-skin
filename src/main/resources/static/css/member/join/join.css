@@ -1,0 +1,75 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 15px;
+    text-align: center;
+}
+.mainImg {
+	width: 100%;
+}
+
+h1{
+    margin: 50px;
+    font-size: 50px;
+}
+hr{
+	margin-left: 40px;
+    margin-right: 40px;
+}
+textarea {
+	width: 70%;
+	text-align: left;
+}
+.agree {
+	padding-top:30px;
+	padding-left: 15%;
+	float: left;
+	font-size: 24px;
+}
+.agree input {
+	zoom: 1.5;
+}
+button{
+	letter-spacing: .5px;
+	padding: 2px;
+	margin: 10px;
+}
+#btns{
+	display: flex;
+	justify-content: center;
+	margin-top: 6px;
+}
+button:hover{
+	cursor: pointer;
+}
+.userInfo{
+	padding-left: 15%;
+	margin-top: 30px;
+	text-align:left;
+}
+label, input, select{
+	margin: 3px;
+}
+.userInfo input, .userInfo select{
+	width:80%;
+	height: 31px;
+	border:none;
+	padding-left: 3px;
+}
+.userInfo input:not(#id), .userInfo select{
+	width:80%;
+	height: 31px;
+	border:none;
+	background-color: #f1f1f1;
+	padding-left: 3px;
+}
+#birth{
+	display: flex;
+	width:80.5%;
+}
+.btn{
+	margin-left: 39%;
+}

@@ -1,0 +1,117 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-style:initial;
+    color: #7B7C95;
+    font-size: 16px;
+}
+header{
+	background-color: #E9E9E9;
+	height: 45px;
+}
+h3{
+	font-size: 20px;
+	margin-left: 10px;
+	vertical-align: middle;
+    line-height: 45px;
+}
+.orderImg {
+	width: 100px;
+	height: 100px;
+}
+table{
+	width:85%;
+	margin: 10px auto;
+	border-collapse: collapse;
+	text-align: center;
+}
+td{
+	padding: 10px;
+	width: 25%;
+}
+.order tr {
+	border-bottom:.5px solid #7B7C95;
+}
+.order tr:last-child {
+	border-bottom: solid 2px #7B7C95;
+}
+
+th, tr {
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+.main{
+	display: flex;
+	width:85%;
+	height: 210px;
+	margin: 10px auto;
+	margin-top: -5px;
+	border-collapse: collapse;
+	border-bottom:.5px solid #7B7C95;
+	border-top:4px solid #7B7C95;
+}
+.recipient {
+	width: 60%;
+    float: left;
+    border-right: .5px solid #7B7C95;
+    padding-top:10px;
+}
+.recipient div {
+	float: right;
+	margin-right: 15%;
+	font-size: 13px;
+}
+.recipient div input {
+	width: 20px;
+	vertical-align: -2px;
+}
+.recipient input {
+	width: 80%;
+	margin: 3px;
+}
+.orderer {
+	width: 35%;
+    float: right;
+    margin-left: 5%;
+    padding-top:10px;
+}
+.orderer input{
+	width: 95%;
+	margin-bottom:4px;
+}
+.orderer > h4{
+	margin-bottom:7px;
+}
+input:not(#checkBox,.radio) {
+	border:none;
+	background-color: #f1f1f1;
+	font-size:17px;
+	padding-left: 3px;
+	height:23px;
+}
+#search-address{
+	margin: 0;
+	font-size: 13px;
+}
+.payment {
+	text-align: left;
+}
+.payment th {
+	width: 10%;
+}
+.payment td input {
+	padding-left: 15px;
+}
+#btns{
+	margin-left: 42%;
+	margin-bottom: 20px;
+}
+button{
+	letter-spacing: .5px;
+	padding:1px;
+	margin-right:9px;
+}
+button:hover{
+	cursor: pointer;
+}

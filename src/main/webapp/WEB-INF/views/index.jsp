@@ -17,7 +17,7 @@
 			<h1>Our Company.</h1>
 			<p>우리는 과장된 광고로 고객의 똑똑한 선택을 가로막지 않습니다.<br>
 				모든제품은 반드시, 효과적이고 유익해야 합니다. 예외는 없습니다.</p>
-			<br><button id="contactUsBtn" onclick="location.href='/'">Learn More</button>
+			<br><button id="contactUsBtn" onclick="location.href='brand'">Learn More</button>
 		</div>
 		<div id="IndSecondDiv">
 			<h1>Product.</h1><br><br>
