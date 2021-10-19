@@ -29,8 +29,8 @@
 		<label>카테고리</label><br>
 		<select name="product_category">
 			<option ${(product.product_category == '클렌저')?'selected':''} value="클렌저">클렌저</option>
-			<option ${(product.product_category == '로션&크림')?'selected':''} value="로션&크림">로션&크림</option>
-			<option ${(product.product_category == '앰플&세럼')?'selected':''} value="앰플&세럼">앰플&세럼</option>
+			<option ${(product.product_category == '크림')?'selected':''} value="크림">크림</option>
+			<option ${(product.product_category == '세럼')?'selected':''} value="세럼">세럼</option>
 			<option ${(product.product_category == '오일')?'selected':''} value="오일">오일</option>
 		</select><br>
 		<label>상품명</label><br>
@@ -39,6 +39,8 @@
 		<input name="product_stock" value="${product.product_stock}" type="number"><br>
 		<label>가격</label><br>
 		<input name="product_price" value="${product.product_price}" type="number"><br>
+		<label>내용량</label><br>
+		<input name="product_capacity" value="${product.product_capacity}" type="text"><br>
 		<label>대표이미지</label><br>
 		<c:if test="${product.product_img_path != ''}">
 			<c:set var="imgPathArr" value="${fn:split(product.product_img_path,',')}"/>
@@ -58,8 +60,10 @@
 			</c:forEach>
 		</c:if>
 		<input id="contentImgPath" name="contentImgs" type="file" multiple><br>
-		<label>제품상세정보</label><br>
-		<textarea name="product_content">${product.product_content}</textarea>
+		<label>제품상세정보(상단)</label><br>
+		<textarea name="product_header_content">${product.product_header_content}</textarea><br>
+		<label>제품상세정보(메인)</label><br>
+		<textarea name="product_main_content">${product.product_main_content}</textarea>
 		<hr class="second-hr" style="border: solid 1px;">
 		<div id="btns">
 			<button type="button" onclick="window.close()">취소</button>

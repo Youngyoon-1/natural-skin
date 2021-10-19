@@ -52,7 +52,7 @@ button:hover{
 		<p>해당 게시물을 삭제하시겠습니까?
 		</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button onclick="javascript:btn()" type="">확인</button>
+		<button type="button" onclick="location.href='deleteQna?qna_board_id=${param.qna_board_id}'">확인</button>
 	</main>
 	<script src="js/user/qna/qnaAlert.js"></script>
 </body>

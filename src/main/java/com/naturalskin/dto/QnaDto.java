@@ -14,6 +14,7 @@ public class QnaDto {
 	private int qna_board_lock;
 	private int qna_board_reply_state;
 	private int qna_board_hit;
+	private String qna_board_querist;
 	private String findBy;
 	
 	public int getQna_board_id() {
@@ -88,4 +89,11 @@ public class QnaDto {
 	public void setFindBy(String findBy) {
 		this.findBy = findBy;
 	}
+	public String getQna_board_querist() {
+		return qna_board_querist;
+	}
+	public void setQna_board_querist(String qna_board_querist) {
+		this.qna_board_querist = qna_board_querist;
+	}
+	
 }

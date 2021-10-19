@@ -54,7 +54,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/")
-	public String index() {
+	public String index(ProductDto productDto, Model model) {
+		model.addAttribute("productList",productService.findAll());
+		model.addAttribute("noticeList",noticeService.findListByCount(4));
 		return "index";
 	}
 	@RequestMapping("aMain")
@@ -143,19 +145,19 @@ public class AdminController {
 	@RequestMapping("aOrderModify")
 	@ResponseBody
 	public String aOrderModify(OrderDto orderDto) {
+		System.out.println(orderDto.getMember_order_id());
 		int result = orderService.modify(orderDto);
 		if(result == 1) {
 			return "<script>"
 					+"alert('주문수정이 완료되었습니다.');"
-					+"window.location.href='aOrderV?member_id="
-					+orderDto.getMember_id()+"';"
+					+"window.location.href='aOrderV?member_order_id="
+					+orderDto.getMember_order_id()+"';"
 					+"opener.location.reload();"
 					+"</script>";
 		}
 		return "<script>"
 				+"alert('주문수정이 실패됐습니다.');"
-				+"window.location.href='aOrderV?member_id="
-				+orderDto.getMember_id()+"';"
+				+"window.history.back();"
 				+"</script>";
 		
 	}

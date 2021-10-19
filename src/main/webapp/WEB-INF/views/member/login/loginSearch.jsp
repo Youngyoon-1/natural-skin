@@ -71,25 +71,41 @@
   <img id="login" src="images/login-top.png" width="100%">
     <h1>아이디 찾기</h1>
     <hr>
-    <div class="searchIdDiv">
-    	<p class="p">가입하신 방법에 따라 아이디 찾기가 가능합니다.<br>
-    	이메일 또는 휴대폰 번호를 입력해주세요.</p>
-    	<div id="radioDiv">
-    		<span>찾을수단</span><input type="radio" name="findBy"><label>이메일</label><input type="radio" name="findBy"><label>휴대폰번호</label>
-    	</div>
-    	<div>
-    		<label>이름</label><input class="input" type="text">
-    	</div>
-    	<div>
-    		<label>이메일</label><input class="input" type="email">
-    	</div>
-    	<div style="display:none">
-    		<label>휴대폰번호</label><input class="input" type="tel">
-    	</div>
-    </div>
-    <button onclick="window.open('searchIdAlert','','width=600, height=200')">찾기</button>
+    <form action="searchId" method="post">
+	    <div class="searchIdDiv">
+	    	<p class="p">가입하신 방법에 따라 아이디 찾기가 가능합니다.<br>
+	    	이메일 또는 휴대폰 번호를 입력해주세요.</p>
+	    	<div id="radioDiv">
+	    		<span>찾을수단</span><input type="radio" name="findBy" value="member_email" onclick="showMailInput();" checked><label>이메일</label><input type="radio" name="findBy" value="member_phone" onclick="showPhoneInput();"${(memberDto.findBy=='member_phone')?'checked':''}><label>휴대폰번호</label>
+	    	</div>
+	    	<div>
+	    		<label>이름</label><input name="member_name" class="input" type="text">
+	    	</div>
+	    	<div id="emailDiv" style="display:${(memberDto.findBy == 'member_phone')?'none':''}" >
+	    		<label>이메일</label><input name="member_email" class="input" type="email">
+	    	</div>
+	    	<div id="phoneDiv" style="display:${(memberDto.findBy != 'member_phone')?'none':''}">
+	    		<label>휴대폰번호</label><input name="member_phone"class="input" type="tel">
+	    	</div>
+	    </div>
+	    
+	    <button>찾기</button>
+    </form>
     <c:import url="../../footer.jsp"/>
   <script>
+	  let emailDiv = document.getElementById("emailDiv");
+	  let phoneDiv = document.getElementById("phoneDiv");
+	  function showMailInput(){
+		  emailDiv.style.display = "inline-block";
+		  phoneDiv.style.display = "none";
+	  }
+	  function showPhoneInput(){
+		  emailDiv.style.display = "none"; 
+		  phoneDiv.style.display = "inline-block";
+	  }
+	  <c:if test="${msg != null}">
+	  	alert("${msg}");
+	  </c:if>
   </script>
  
 </body>

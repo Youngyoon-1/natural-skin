@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -101,29 +102,24 @@ button:hover{
 	<c:import url="../../header.jsp"/>
 	<img class="mainImg" src="images/myPage.png"/>
 	<h1>주문상세페이지</h1>
-	<span class="orderNum">주문번호 : 20210927</span><br>
+	<span class="orderNum">주문번호 : ${order.member_order_id}</span><br>
 	<p style="clear: both; font-size: 1px">&nbsp;</p>
 	<hr style="border: solid 2px;"><br>
 	<div>
-		<div class="div1">주문완료(배송준비중)</div>
-		<div class="div2"><input type="button" value="배송조회" onclick="window.open('trackAlert','','width=600, height=200');"></input></div>
+		<div class="div1">주문완료(${order.member_order_state})</div>
+		<div class="div2"><input type="button" value="배송조회" onclick="window.open('trackAlert?member_order_id=${order.member_order_id}','','width=600, height=200');"></input></div>
 	</div>
 	<br>
 	<table class="order">
-		<tr>
-			<td><img class="orderImg" src="images/myPageOrder.png"></td>	
-			<td>BodyOil</td>
-			<td>25,000원</td>
-			<td>1개</td>
-			<td><button type="button" onclick="location.href='reviewW'">리뷰쓰기</button></td>
-		</tr>
-		<tr>
-			<td><img class="orderImg" src="images/myPageOrder.png"></td>	
-			<td>BodyOil</td>
-			<td>25,000원</td>
-			<td>2개</td>
-			<td><input type="hidden"></td>
-		</tr>
+		<c:forEach var="orderDetail" items="${list}">
+			<tr>
+				<td><img class="orderImg" src="upload/${orderDetail.product_img_path}"></td>	
+				<td>${orderDetail.product_name}</td>
+				<td><fmt:formatNumber value="${orderDetail.product_price}" pattern="#,###" />원</td>
+				<td>${orderDetail.order_detail_amount}개</td>
+				<td><button type="button" onclick="location.href='reviewW?order_detail_id=${orderDetail.order_detail_id}'" style="display:${(orderDetail.order_detail_review != 0 || order.member_order_state == '주문취소요청' || order.member_order_state == '주문취소완료')?'none':''}">리뷰쓰기</button></td>
+			</tr>
+		</c:forEach>
 	</table>
 	
 	<hr style="border: solid 2px;"><br>
@@ -131,16 +127,16 @@ button:hover{
 	<table class="deliver">
 		<tr>
 			<th>받는사람</th>
-			<td>홍길동</td>
-			<td rowspan="3"><button type="button" onclick="window.open('myPageOrderM','','width=600, height=400');">배송정보변경</button></td>
+			<td>${order.member_order_receive_name}</td>
+			<td rowspan="3"><button type="button" style="display:${(order.member_order_state == '주문취소요청'|| order.member_order_state == '주문취소완료')?'none':''}" onclick="window.open('myPageOrderM?member_order_id=${order.member_order_id}','','width=600, height=400');">배송정보변경</button></td>
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td>서울특별시 중랑구 면목동 110-22 이렐리아 101호</td>
+			<td>${order.member_order_receive_address}&nbsp;${order.member_order_receive_address_detail}</td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td>000-2222-3333</td>
+			<td>${order.member_order_receive_phone}</td>
 		</tr>
 	</table>
 	<hr style="border: solid 2px;"><br>
@@ -149,11 +145,15 @@ button:hover{
 		<tr>
 			<th>결제수단</th>
 			<th>결제금액</th>
-			<th rowspan="2"><button type="button" onclick="window.open('cancelAlert','','width=600, height=200');">결제/주문취소</button></th>		
+			<th rowspan="2">
+				<button type="button" style="display:${(order.member_order_state == '주문취소요청'|| order.member_order_state == '주문취소완료')?'none':''}" onclick="window.open('cancelAlert?member_order_id=${order.member_order_id}','','width=600, height=200');">
+					결제/주문취소
+				</button>
+			</th>		
 		</tr>
 		<tr>
-			<td>무통장입금</td>
-			<td>75,000원</td>
+			<td>${order.member_order_payment_method}</td>
+			<td><fmt:formatNumber value="${order.member_order_price}" pattern="#,###" />원</td>
 		</tr>
 	</table>
 	<hr style="border: solid 2px;">

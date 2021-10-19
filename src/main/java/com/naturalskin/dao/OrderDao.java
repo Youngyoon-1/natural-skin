@@ -20,4 +20,15 @@ public interface OrderDao {
 
 	int delete(OrderDto orderDto);
 
+	int getSeqNextVal();
+
+	int insert(OrderDto orderDto);
+
+	List<OrderDto> findListById(Map map);
+
+	int update(OrderDto orderDto);
+
+	int updateState(OrderDto orderDto);
+
+	int findOrderCountById(OrderDto orderDto);
 }

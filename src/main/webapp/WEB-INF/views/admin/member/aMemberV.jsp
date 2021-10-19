@@ -18,7 +18,7 @@
 			<label>아이디</label><br>
 			<input id="id" name="member_id" value="${memberInfo.member_id}" readonly style="border:none">
 		</div>
-		<button id="orderBtn" type="button">최근주문내역보기</button><br>
+		<button id="orderBtn" type="button" onclick="window.open('aOrderMain?findBy=member_id&member_id=${memberInfo.member_id}')">최근주문내역보기</button><br>
 		<label>비밀번호</label><br>
 		<input id="member_pw" name="member_pw" value="${memberInfo.member_pw}" type="text"><br>
 		<label>이름</label><br>

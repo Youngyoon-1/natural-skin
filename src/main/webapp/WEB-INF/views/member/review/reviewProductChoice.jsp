@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -114,47 +115,45 @@
 </style>
 </head>
 <body>
-	<header><h2>상품3건</h2></header>
+	<header><h2>리뷰작성 가능한 상품 ${fn:length(list)}건</h2></header>
 	<hr style="border: solid 2px;">
-	  <form action="">
-				<table >
+				<table>
 					<tr>
 						<th>선택</th>
 						<th colspan="2">상품명</th>
-					</tr>	
-					<tr>
-					    <td>
-                          <input type="radio" name="product-choice" value=""></td>
-                      <td id="product-td">
-                      	<img class="product-image" src="images/product1.png" alt="" />
-                      </td>
-                      <td>
-                      	<label id="product-name">Natural Ample</label>
-                      </td>
-                    </tr>
-                    <tr>
-					    <td>
-                          <input type="radio" name="product-choice" value=""></td>
-                      <td id="product-td">
-                      	<img class="product-image" src="images/product1.png" alt="" />
-                      </td>
-                      <td>
-                      	<label id="product-name">Natural Ample</label>
-                      </td>
-                    </tr>
-                    <tr>
-					    <td>
-                          <input type="radio" name="product-choice" value=""></td>
-                      <td id="product-td">
-                      	<img class="product-image" src="images/product1.png" alt="" />
-                      </td>
-                      <td>
-                      	<label id="product-name">Natural Ample</label>
-                      </td>
-                    </tr>
-                     </table>       
+					</tr>
+					<c:forEach var="order" items="${list}">
+						<tr>
+			    		  <td>
+                          	<input type="radio" name="product-choice" value="${order.product_name}" onclick="choiceRadio(this.value,${order.order_detail_id},${order.product_id})" >
+                          	<input name="order_detail_id" value="${order.order_detail_id}" type="hidden">
+                          </td>
+                      	  <td id="product-td">
+	                      	<img class="product-image" src="upload/${order.product_img_path}" alt="" />
+	                      </td>
+	                      <td>
+	                      	<label id="product-name">${order.product_name}</label>
+	                      </td>
+	                    </tr>
+					</c:forEach>	
+                   </table>       
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button onclick="javascript:btn()" type="button">확인</button>	
-         </form>
+		<button onclick="choice()" type="button">확인</button>	
+	<script>
+		let choiceVal = '';
+		let choiceDetailId = 0;
+		let choiceProductId = 0;
+		function choiceRadio(value,detailId,productId){
+			choiceVal = value;
+			choiceDetailId = detailId;
+			choiceProductId = productId;
+		}
+		function choice(){
+			opener.document.getElementById("product-name").value = choiceVal;
+			opener.document.getElementById("order_detail_id").value = choiceDetailId;
+			opener.document.getElementById("product_id").value = choiceProductId;
+			window.close();
+		}
+	</script>
 </body>
 </html>

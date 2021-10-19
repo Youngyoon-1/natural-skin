@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.ReviewDao">
+	<select id="findById" resultType="com.naturalskin.dto.ReviewDto">
+		select * from review_board where review_board_id = #{review_board_id}
+	</select>
+	<select id="findAll" resultType="com.naturalskin.dto.ReviewDto">
+		select * from review_board order by review_board_id desc
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from review_board
+	</select>
+	<select id="getCountBy" resultType="int">
+		select count(*) from review_board
+		<choose>
+			<when test="findBy == 'review_board_title'">
+				where review_board_title = #{review_board_title}
+			</when>
+			<when test="findBy == 'member_id'">
+				where member_id = #{member_id}
+			</when>
+		</choose>
+	</select>
+	<select id="findList" resultType="com.naturalskin.dto.ReviewDto">
+		select * from (select rownum rn, a.* from 
+			(select * from review_board 
+			<choose>
+				<when test="reviewDto.findBy == 'member_id'">
+					where member_id = #{reviewDto.member_id}
+				</when>
+				<when test="reviewDto.findBy == 'review_board_title'">
+					where review_board_title = #{reviewDto.review_board_title}
+				</when>
+			</choose>
+			order by review_board_id desc)a)
+		where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
+	</select>
+	<select id="findByProductId" resultType="com.naturalskin.dto.ReviewDto">
+		select * from(
+			select rownum rn, a.* from(
+				select * from review_board where product_id = #{productDto.product_id} order by review_board_id desc
+				)a
+			)
+		where rn between 1 and #{count}
+	</select>
+	<select id="findListById" resultType="com.naturalskin.dto.ReviewDto">
+		select * from (
+			select rownum rn, a.* from(
+					select * from review_board where member_id = #{reviewDto.member_id} order by review_board_id desc
+					)a
+			)
+		where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
+	</select>
+	<select id="findCountById" resultType="int">
+		select count(*) from review_board where member_id = #{member_id}
+	</select>
+	<update id="updateHit">
+		update review_board set review_board_hit = review_board_hit + 1
+			where review_board_id = #{review_board_id}
+	</update>
+	<update id="updateReplyCnt">
+		update review_board 
+		set reply_count = (select count(*) from review_reply where review_board_id = #{review_board_id})
+		where review_board_id = #{review_board_id} 
+	</update>
+	<update id="modify">
+		update review_board
+		set review_board_img_path = #{review_board_img_path}, review_board_title = #{review_board_title},
+		review_board_score = #{review_board_score}, review_board_content = #{review_board_content}
+		where review_board_id = #{review_board_id} 
+	</update>
+	<update id="modifyImgPath">
+		update review_board
+		set review_board_img_path = #{review_board_img_path}
+		where review_board_id = #{review_board_id} 
+	</update>
+	<insert id="save">
+		insert into review_board(review_board_id,member_id,product_id,review_board_title,review_board_content,review_board_score,review_board_img_path,product_name)
+		  values(review_board_seq.nextval,#{member_id},#{product_id},#{review_board_title},#{review_board_content},#{review_board_score},#{review_board_img_path},#{product_name})
+	</insert>
+	<delete id="delete">
+		delete from review_board where review_board_id = #{review_board_id} 
+	</delete>
+</mapper>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -90,6 +92,9 @@ h2{
 #infoDiv:hover{
 	cursor:pointer;
 }
+.bold{
+	font-weight:bold;
+}
 </style>
 </head>
 <body>
@@ -106,20 +111,28 @@ h2{
 			<th>상품명</th>
 			<th>금액</th>
 		</tr>
-		<tr onclick="location.href='myPageOrder'">
-			<td>2021-09-27</td>
-			<td>주문완료</td>
-			<td>body Oil</td>
-			<td>25000</td>
-		</tr>
-		<tr onclick="location.href='myPageOrder'">
-			<td>2021-09-27</td>
-			<td>주문완료</td>
-			<td>body Oil, Natural Cream</td>
-			<td>70000</td>
-		</tr>
+		<c:forEach var="order" items="${list}">
+			<tr onclick="location.href='myPageOrder?member_order_id=${order.member_order_id}'">
+				<td>
+					<fmt:formatDate value="${order.member_order_date}" pattern="yyyy-MM-dd" />
+				</td>
+				<td>${order.member_order_state}</td>
+				<td>${fn:replace(fn:replace(order.product_name,'[',''),']','')}</td>
+				<td>
+					<fmt:formatNumber value="${order.member_order_price}" pattern="#,###" />원
+				</td>
+			</tr>
+		</c:forEach>
 	</table>
-	
+	<div>
+		<a href="myPageMain?page=1">처음</a>
+		<a href="myPageMain?page=${pagingDto.page-1}">이전</a>
+		<c:forEach var="no" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+			<a class="${(pagingDto.page == no)?'bold':''}" href="myPageMain?page=${no}">${no}</a>
+		</c:forEach>
+		<a href="myPageMain?page=${pagingDto.page+1}">다음</a>
+		<a href="myPageMain?page=${pagingDto.totalPage}">마지막</a>
+	</div>
 	<div id="btns">
 		<div id="infoDiv" onclick="location.href='myPageM'">
 			<div class="front">

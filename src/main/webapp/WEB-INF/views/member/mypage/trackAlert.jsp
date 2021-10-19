@@ -54,7 +54,7 @@ button:hover{
 	<header><h3>배송조회</h3></header>
 	<form action="">
 	<main>
-		<p>현재 고객님의 소중한 상품이 ‘배송준비중’ 입니다.</p>
+		<p>현재 고객님의 소중한 상품이 "${order.member_order_state}" 입니다.</p>
 		<button id="btn" type="button" onclick="window.close()">확인</button>
 	</main>
 	</form>

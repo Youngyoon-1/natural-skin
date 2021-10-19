@@ -53,10 +53,7 @@ button:hover{
 		(해당 게시물의 모든 리뷰도 삭제되오니 유의하세요.)
 		</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button onclick="javascript:btn()" type="button">확인</button>
+		<button onclick="location.href='deleteReview?review_board_id=${param.review_board_id}'" type="button">확인</button>
 	</main>
-	<script> function btn(){ 
-		alert('해당 게시물이 삭제되었습니다.'); 
-		window.close()} </script>
 </body>
 </html>

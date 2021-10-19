@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.OrderDetailDao">
+	<select id="findDetailById" resultType="com.naturalskin.dto.OrderDetailDto">
+		select * from order_detail where order_detail_id = #{order_detail_id}
+	</select>
+	<select id="findById" resultType="com.naturalskin.dto.OrderDetailDto">
+		select * from order_detail where member_order_id = #{member_order_id}
+	</select>
+	<select id="findCanReview" resultType="com.naturalskin.dto.OrderDetailDto">
+		select * from order_detail where member_id = #{member_id} and order_detail_review = 0
+	</select>
+	<insert id="insert">
+		insert into order_detail(order_detail_id,member_order_id,member_id,product_id,order_detail_amount,order_detail_price,product_name,product_price,product_img_path)
+		values(order_detail_seq.nextval,#{member_order_id},#{member_id},#{product_id},#{order_detail_amount},#{order_detail_price},#{product_name},#{product_price},#{product_img_path})
+	</insert>
+	<update id="updateReviewState">
+		update order_detail set order_detail_review = 1
+		where order_detail_id = #{order_detail_id}
+	</update>
+	<update id="updateReStateByOrderId">
+		update order_detail set order_detail_review = 1
+		where member_order_id = #{member_order_id}
+	</update>
+</mapper>

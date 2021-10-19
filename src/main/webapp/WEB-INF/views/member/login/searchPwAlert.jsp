@@ -55,11 +55,9 @@ main{
 <body>
 	<header><h3>비밀번호찾기 결과</h3></header>
 	<main>
-		<p>-고객님의 소중한 정보입니다.<br>
-		-로그인 후 비밀번호를 변경해주세요.<br><br>
-		- 임시 비밀번호 <input type="text" value="ddf123" readonly>
+		<p>-가입하신 이메일로 임시비밀번호를 발송해드렸습니다.<br>확인 후 로그인 해주세요.
 		</p>
-		<button onclick="window.close(); opener.location.href='login'" type="">확인</button>
+		<button onclick="window.close();" type="">확인</button>
 	</main>
 	<script src="js/user/qna/qnaAlert.js"></script>
 </body>

@@ -1,5 +1,6 @@
 package com.naturalskin.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.naturalskin.dao.ProductDao;
+import com.naturalskin.dto.BasketDto;
 import com.naturalskin.dto.PagingDto;
 import com.naturalskin.dto.ProductDto;
 
@@ -52,4 +54,19 @@ public class ProductService {
 	public int delete(ProductDto productDto) {
 		return productDao.delete(productDto);
 	}
+	public List<ProductDto> findAll() {
+		return productDao.findAll();
+	}
+	public List<ProductDto> findByCategory(ProductDto productDto) {
+		return productDao.findByCategory(productDto);
+	}
+//	public List<ProductDto> findByBasketList(List<BasketDto> basketList) {
+//		List<ProductDto> productList = new ArrayList<ProductDto>();
+//		ProductDto productDto = new ProductDto();
+//		for(BasketDto basket : basketList) {
+//			productDto.setProduct_id(basket.getProduct_id());
+//			productList.add(productDao.findById(productDto));
+//		}
+//		return productList;
+//	}
 }

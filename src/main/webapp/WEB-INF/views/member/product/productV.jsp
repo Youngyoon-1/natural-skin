@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -16,35 +18,43 @@
 		<h1>상품정보</h1>
 		<hr class="mainHr">
 		<div id="productDiv">
-			<div class="imgDiv"><img src="images/naturalAmple.png" onmouseover="this.src='images/naturalAmple2.png'" onmouseout="this.src='images/naturalAmple.png'"></div>
-			<form>
+			<c:set var="imgPath" value="${fn:split(product.product_img_path,',')}" />
+			<div class="imgDiv"><img src="upload/${imgPath[0]}" onmouseover="this.src='upload/${imgPath[1]}'" onmouseout="this.src='upload/${imgPath[0]}'" width="490px" height="490px"></div>
+			<form action="order" method="post" target="popUp" onsubmit="return order()">
 				<div>
-					<p><span id="productTitle">Natural Ample</span><br><br><span id="price">45,000원</span></p>
+					<p><span id="productTitle">${product.product_name}</span><br><br><span id="price">
+					<fmt:formatNumber value="${product.product_price}" pattern="#,###" />원</span></p>
 					<hr>
 					<p>제조&nbsp;&nbsp;&nbsp;자체제작<br>
 					   원산지&nbsp;&nbsp;&nbsp;국내<br>
-					   용량&nbsp;&nbsp;&nbsp;75ml
+					   내용량&nbsp;&nbsp;&nbsp;${product.product_capacity}
 					</p>
 					<hr>
 					<p>
-						<label>Natural Ample</label>&nbsp;&nbsp;&nbsp;
-						<input id="productCount" type='number' value="1" min='1' max='999' step='1' onclick="upatePrice();">
+						<label>${product.product_name}</label>&nbsp;&nbsp;&nbsp;
+						<input id="productCount" type='number' name="product_amount" value="1" min='1' max='${product.product_stock}' step='1' onchange="upatePrice();">
 					</p>
 					<hr>
 					<p id="totalPrice">
 						<span>TOTAL: </span>
-						<span class="price">45,000</span>원
+						<span class="price">
+						<fmt:formatNumber value="${product.product_price}" pattern="#,###" />
+						</span>원
 					</p>
-					<button type="button">구매하기</button>
-					<button type="button" onclick="window.open('productAlert','','width=600, height=200')">장바구니</button>
+					<input type="hidden" value="${product.product_id}" name="product_id">
+					<input type="hidden" value="${imgPath[0]}" name="product_img_path">
+					<input type="hidden" value="${product.product_name}" name="product_name">
+					<input type="hidden" value="${product.product_price}" name="product_price">
+					<button>주문하기</button>
+					<button type="button" onclick="addToCart()">장바구니</button>
 				</div>
 			</form>
 		</div>
 		<hr class="mainHr">
 		<b><a id="productInfo" class="productNav">제품상세정보</a></b>
 		<a class="productNav" href="#purchaseGuide">상품구매안내</a>
-		<a class="productNav" href="#productReview">상품리뷰(2)</a>
-		<a class="productNav" href="#productQna">상품Q&A(2)</a>
+		<a class="productNav" href="#productReview">상품리뷰</a>
+		<a class="productNav" href="#productQna">상품Q&A</a>
 		<hr class="mainHr">
 		<p class="productContent">
 			"외부 환경에 따라 변화하하는<br>
@@ -54,50 +64,9 @@
 		<br>
 		<div><img src="images/productContentImg1.png" width="1200px"></div>
 		<br>
-		<div class="productTitle">
-			<h5>REGENERATING SKIN</h5>
-			<p>
-				피부층을 탄탄하게 재건<br>
-				수분 탄력막
-			</p>
-			<h5>PERFECT AMPLE</h5>
-		</div>
-		<br><div><img src="images/naturalAmple2.png" width="1200px"></div><br>
-		<div class="productTitle">
-			<h5>01 Longlasting Moisturized</h5>
-			<p>
-				속 당김 부터 겉보습까지<br><br>
-				표피성장 인자로 피부의 친수성을 올려<br>
-				피부를 촉촉하게 유지시켜 줍니다.
-			</p>
-		</div>
-		<hr class="mainHr">
-		<div class="productTitle">
-			<h5>02 Requlating ample</h5>
-			<p>
-				농축된 엠플의 제형<br><br>
-				농축된 엠플의 쫀쫀한 제형이 매끄럽게 밀착되며 속부터 차오르는 수분광으로 윤기있는 피부결을 선사합니다.
-			</p>
-		</div>
-		<hr class="mainHr">
-		<div class="productTitle">
-			<h5>03 Mild fomula</h5>
-			<p>
-				민감 피부를 위한 마일드 포뮬러<br><br>
-				민감한 피부도 걱정없이 사용할 수 있는 저자극 성분으로 지친 피부의 컨디션을 올려줍니다.
-			</p>
-		</div>
-		<hr class="mainHr">
-		<h5>How to use</h5><br><br>
-		<p>
-			예민해진 피부를 진정시키며<br>
-			피부장벽을 강화시켜주는 고농축 엠플로<br>
-			외부 환경으로부터 지친 피부를 케어해줍니다.<br>
-		</p><br><br>
-		<br><h5>Day & Night</h5><br><br>
-		<p>
-			세안 후 물기를 충분히 제거한 뒤 앰플을 펴 발라줍니다.
-		</p><br>
+		${product.product_header_content}
+		<br><div><img src="upload/${imgPath[1]}" width="1200px"></div><br>
+		${product.product_main_content}
 		<hr class="mainHr">
 		<h5 id="howToThrow">잘 버리는법</h5><br><br>
 		<div><img src="images/productContentImg2.png" width="1200px"></div><br><br>
@@ -111,9 +80,9 @@
 		<h5>제품요약정보</h5>
 		<hr class="mainHr">
 		<div id="productInfo2">
-			<div><img src="images/naturalAmple.png" width="400px"></div>
+			<div><img src="upload/${imgPath[0]}" width="400px" height="400px"></div>
 			<p>
-				<span>용량:</span> 75ml<br>
+				<span>내용량:</span> ${product.product_capacity}<br>
 				<span>제품 주요 사양:</span> 모든피부<br>
 				<span>성분:</span> 정제수, 코코넛오일, 나이아신아마드, 헥산다이올, 다이포타슘글리시리제이트, 카라멜<br>
 				<span>사용기한:</span> 발송일로부터 1년이내 제조<br>
@@ -124,8 +93,8 @@
 		<hr class="mainHr">
 		<a class="productNav" href="#productInfo">제품상세정보</a>
 		<b><a id="purchaseGuide" class="productNav">상품구매안내</a></b>
-		<a class="productNav" href="#productReview">상품리뷰(2)</a>
-		<a class="productNav" href="#productQna">상품Q&A(2)</a>
+		<a class="productNav" href="#productReview">상품리뷰</a>
+		<a class="productNav" href="#productQna">상품Q&A</a>
 		<hr class="mainHr">
 		<div class="purchaseGuide">
 			<div>
@@ -180,58 +149,49 @@
 			<div>
 				<h5>서비스문의</h5><br>
 				<p>
-					-Q&A 게시판 바로가기
+					<a href="qnaMain">-Q&A 게시판 바로가기</a>
 				</p>
 			</div>
 		</div>
 		<hr class="mainHr">
 		<a class="productNav" href="#productInfo">제품상세정보</a>
 		<a class="productNav" href="#purchaseGuide">상품구매안내</a>
-		<b><a id="productReview" class="productNav">상품리뷰(2)</a></b>
-		<a class="productNav" href="#productQna">상품Q&A(2)</a>
+		<b><a id="productReview" class="productNav">상품리뷰</a></b>
+		<a class="productNav" href="#productQna">상품Q&A</a>
 		<hr class="mainHr">
 		<h5>리뷰</h5>
-		<button id="reviewBtn" type="button" style="float: right;width:100px;">리뷰작성하기</button><br>
-		<hr class="reveiwHr">
-		<div class="review">
-			<div>
-				<span>별점:</span><img src="images/star5.png" width="80px">
+		<button id="reviewBtn" onclick="location.href='reviewW'" type="button" style="float: right;width:100px;display:${(member_id == '' || member_id == null)?'none':''}">리뷰작성하기</button><br>
+		<c:forEach var="review" items="${reviewList}">
+			<hr class="reveiwHr">
+			<div class="review">
+				<div>
+					<span>별점:</span><img src="images/star${review.review_board_score}.png" width="80px">
+				</div>
+				<div>
+					<span>아이디: ${review.member_id}</span>&nbsp;&nbsp;&nbsp;<span>작성일: <fmt:formatDate value="${review.review_board_date}" pattern="yyyy-MM-dd" /></span>&nbsp;&nbsp;&nbsp;<span>조회수: ${review.review_board_hit}</span>
+				</div>
 			</div>
-			<div>
-				<span>아이디: dlanfslk</span>&nbsp;&nbsp;&nbsp;<span>작성일: 2020-00-00</span>&nbsp;&nbsp;&nbsp;<span>조회수: 10</span>
+			<hr class="reveiwHr">
+			<div class="reviewContent">
+				<span>${review.review_board_content}</span><br>
+				<c:if test="${fn:length(review.review_board_img_path) != 0}">
+					<c:set var="imgPaths" value="${fn:split(review.review_board_img_path,',')}" />
+					<c:forEach var="reviewImgPath" items="${imgPaths}">
+						<img src="upload/${reviewImgPath}" width="130px" height="130px">
+					</c:forEach>
+				</c:if>
 			</div>
-		</div>
-		<hr class="reveiwHr">
-		<div class="reviewContent">
-			<a href=""><span>만족합니다.</span></a><br>
-			<img src="images/naturalAmple.png" width="130px">
-			<img src="images/naturalAmple.png" width="130px">
-		</div>
-		<hr class="reveiwHr">
-		<div class="review">
-			<div>
-				<span>별점:</span><img src="images/star5.png" width="80px">
-			</div>
-			<div>
-				<span>아이디: dlanfslk</span>&nbsp;&nbsp;&nbsp;<span>작성일: 2020-00-00</span>&nbsp;&nbsp;&nbsp;<span>조회수: 10</span>
-			</div>
-		</div>
-		<hr class="reveiwHr">
-		<div class="reviewContent">
-			<a href=""><span>만족합니다.</span></a><br>
-			<img src="images/naturalAmple.png" width="130px">
-			<img src="images/naturalAmple.png" width="130px">
-		</div>
-		<hr class="mainHr">
-		페이징
+		</c:forEach>
+		<br>
+		<%-- <a href="reviewMain" style="display:${(fn:length(reviewList) == 0)?'none':''}">리뷰더보기</a> --%>
 		<hr class="mainHr">
 		<a class="productNav" href="#productInfo">제품상세정보</a>
 		<a class="productNav" href="#purchaseGuide">상품구매안내</a>
-		<a class="productNav" href="#productReview">상품리뷰(2)</a>
-		<b><a class="productNav" id="productQna">상품Q&A(2)</a></b>
+		<a class="productNav" href="#productReview">상품리뷰</a>
+		<b><a class="productNav" id="productQna">상품Q&A</a></b>
 		<hr class="mainHr">
 		<h5>Q&A</h5>
-		<button id="reviewBtn" type="button" style="float: right;width:100px;">Q&A작성하기</button><br>
+		<button id="reviewBtn" type="button" onclick="location.href='qnaW'" style="float: right;width:100px;display:${(member_id == '' || member_id == null)?'none':''}">Q&A작성하기</button><br>
 		<hr class="reveiwHr">
 		<table>                    
 			<tr id="first-tr">
@@ -241,35 +201,73 @@
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>
-					상품문의드립니다.
-					<img id="lock" src="images/lock.png" alt="잠금"/>
-				</td>
-				<td>아이린</td>
-				<td>2020-00-00</td>
-				<td>10</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>
-					<img id="re" src="images/re.png" alt="답글"/>
-					상품문의드립니다.
-					<img id="lock" src="images/lock.png" alt="잠금"/>
-				</td>
-				<td>admin</td>
-				<td>2020-00-00</td>
-				<td>10</td>
-			</tr>
+			<c:forEach var="qna" items="${qnaList}" varStatus="status">
+				<tr onclick="checkAuthor(${qna.qna_board_id},${qna.qna_board_lock},'${qna.member_id}','${qna.qna_board_querist}')">
+					<td>${status.count}</td>
+					<td>
+						<img id="re" style="display:${(qna.qna_board_reply_state != 2)?'none':''}" src="images/re.png" alt="답글"/>
+						${qna.qna_board_title}
+						<img id="lock" style="display:${(qna.qna_board_lock == 0)?'none':''}" src="images/lock.png" alt="잠금"/>
+					</td>
+					<td>${qna.member_id}</td>
+					<td><fmt:formatDate value="${qna.qna_board_date}" pattern="yyyy-MM-dd" /></td>
+					<td>${qna.qna_board_hit}</td>
+				</tr>
+			</c:forEach>
 	</table>
 	</div>
 	<c:import url="../../footer.jsp"/>
 	<script>
+		let productCount = document.getElementById("productCount");
 		function upatePrice(){
 			let price = document.querySelector(".price");
-			let productCount = document.getElementById("productCount");
-			price.innerText = (productCount.value * 45000).toLocaleString();
+			price.innerText = (productCount.value * ${product.product_price}).toLocaleString();
+		}
+		function order(){
+			if(!'${member_id}'){
+				alert("로그인 후 주문을 진행해주세요.");
+				location.href = "login";
+				return false;
+			}
+			window.open('','popUp','width=700, height=790');
+		}
+		function addToCart(){
+			if(!'${member_id}'){
+				alert("로그인 후 주문을 진행해주세요.");
+				location.href = "login";
+				return;
+			}
+			fetch("addToBasket?product_id=${product.product_id}&product_name=${product.product_name}&product_price=${product.product_price}&product_img_path=${imgPath[0]}&product_amount="+productCount.value)
+				.then(res => res.json())
+				.then(res => {
+					if(res === 1){
+						return window.open('productAlert','','width=600, height=200');
+					}
+					return alert('시스템오류 관리자에게 문의바랍니다.');
+				});
+			/* location.href='addToBasket?product_id=${product.product_id}&product_amount='+productCount.value; */
+		}
+		function checkAuthor(boardId,boardLock,memberId,queristId){
+			if(boardLock === 1){
+				if('${member_id}' === ''){
+					return alert('접근권한이 없습니다');
+				}
+				if('${member_role}' === 'admin'){
+					window.location.href='qnaV?qna_board_id='+boardId;
+				}else{
+					if('${member_id}' === memberId){
+						window.location.href='qnaV?qna_board_id='+boardId;
+					}else{
+						if('${member_id}' === queristId){
+							window.location.href='qnaV?qna_board_id='+boardId;
+						}else{
+							return alert('접근권한이 없습니다');
+						}
+					}
+				}
+			}else{
+				window.location.href='qnaV?qna_board_id='+boardId;
+			}
 		}
 	</script>
 </body>

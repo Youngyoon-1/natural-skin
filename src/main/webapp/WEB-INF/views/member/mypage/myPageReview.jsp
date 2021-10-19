@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -100,6 +102,9 @@ button{
 padding-right:7px;
 padding-left:7px;
 }
+.bold{
+	font-weight:bold;
+}
 </style>
 </head>
 <body>
@@ -108,6 +113,7 @@ padding-left:7px;
 	<h1>나의게시물</h1>
 	<hr style="border: solid 2px;">
 	<h2>리뷰게시물</h2>
+	<br>
 	<hr class="second-hr" style="border: solid 1px;">
 	<table>
 		<tr id="first-tr">
@@ -117,29 +123,27 @@ padding-left:7px;
 			<th>별점</th>
 			<th>조회수</th>
 		</tr>
-		<tr onclick="location.href='#'">
-			<td>2</td>
-			<td><img class="reviewImg" src="images/myPageReview.png">만족합니다.</td>
-			<td>2021-09-27</td>
-			<td><img src="images/star3.png" class="star"></td>
-			<td>0</td>
-		</tr>
-		<tr onclick="location.href='#'">
-			<td>1</td>
-			<td><img class="reviewImg" src="images/myPageReview.png">만족합니다.</td>
-			<td>2021-09-27</td>
-			<td><img src="images/star3.png" class="star"></td>
-			<td>0</td>
-		</tr>
+		<c:forEach var="review" items="${list}" varStatus="status">
+			<c:set var="imgPath" value="${fn:split(review.review_board_img_path,',')}"/>
+			<tr onclick="location.href='reviewV?review_board_id=${review.review_board_id}'">
+				<td>${pagingDto.startRN + status.index}</td>
+				<td><img class="reviewImg" style="display:${(review.review_board_img_path == '' || review.review_board_img_path == null)?'none':''}" src="upload/${imgPath[0]}">${review.review_board_title}</td>
+				<td><fmt:formatDate value="${review.review_board_date}" pattern="yyyy-MM-dd" /></td>
+				<td><img src="images/star${review.review_board_score}.png" class="star"></td>
+				<td>${review.review_board_hit}</td>
+			</tr>
+		</c:forEach>
 	</table>
-	<br>
-	<div id="search-bar">
-		<select>
-			<option>제목</option>
-		</select>
-		<input type="text">
-		<input type="image" id="search-logo" src="images/search.png" style="border: solid 0.5px;"/>
+	<div>
+		<a href="myPageReview?page=1">처음</a>
+		<a href="myPageReview?page=${pagingDto.page-1}">이전</a>
+		<c:forEach var="no" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+			<a class="${(pagingDto.page == no)?'bold':''}" href="myPageReview?page=${no}">${no}</a>
+		</c:forEach>
+		<a href="myPageReview?page=${pagingDto.page+1}">다음</a>
+		<a href="myPageReview?page=${pagingDto.totalPage}">마지막</a>
 	</div>
+	<br>
 	<div id="btns">
 		<button type="button" onclick="location.href='myPageQna'">Q&A게시물</button>
 		<button type="button" onclick="location.href='myPageMain'">마이페이지</button>

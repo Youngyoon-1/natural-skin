@@ -3,6 +3,34 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naturalskin.dao.MemberDao">
+	<select id="findId" resultType="String">
+		select member_id from member where member_name = #{member_name}
+		<choose>
+			<when test="findBy == 'member_email'">
+				and member_email = #{member_email}
+			</when>
+			<when test="findBy == 'member_phone'">
+				and member_phone = #{member_phone}
+			</when>
+		</choose>
+	</select>
+	<select id="findPw" resultType="int">
+		select count(*) from member where member_name = #{member_name} and member_id = #{member_id}
+		<choose>
+			<when test="findBy == 'member_email'">
+				and member_email = #{member_email}
+			</when>
+			<when test="findBy == 'member_phone'">
+				and member_phone = #{member_phone}
+			</when>
+		</choose>
+	</select>
+	<select id="findByIdNPw" resultType="int">
+	 	select count(*) from member where member_id = #{member_id} and member_pw = #{member_pw}
+	</select>
+	<select id="findRoleById" resultType="int">
+		select member_role from member where member_id = #{member_id}
+	</select>
 	<select id="findById" resultType="com.naturalskin.dto.MemberDto">
 		select * from member where member_id = #{member_id} order by member_date
 	</select>
@@ -18,7 +46,7 @@
 				order by member_idx desc
 			)a
 		)
-		where rn between 1 + #{pagingDto.countPerPage} * (#{pagingDto.page} - 1) and #{pagingDto.countPerPage} * #{pagingDto.page}
+		where rn between #{pagingDto.startRN}  and #{pagingDto.endRN} 
 	</select>
 	<select id="findMemberCount" resultType="int">
 		select count(*) from member 
@@ -28,6 +56,13 @@
 			<when test="findBy == 'member_role'">where member_role = #{member_role}</when>
 		</choose>
 	</select>
+	<select id="findPwById" resultType="String">
+		select member_pw from member where member_id = #{member_id}
+	</select>
+	<update id="modifyPw">
+		update member set member_pw = #{member_pw}
+		where member_id = #{member_id}
+	</update>
 	<update id="modify">
 		update member set member_pw=#{member_pw}, 
 		member_name=#{member_name},
@@ -44,5 +79,8 @@
 	<delete id="deleteById">
 		delete from member where member_id = #{member_id}
 	</delete>
-
+	<insert id="join">
+		insert into member (member_id,member_pw,member_name,member_year,member_month,member_day,member_gender,member_address,member_address_detail,member_phone,member_email)
+			values(#{member_id},#{member_pw},#{member_name},#{member_year},#{member_month},#{member_day},#{member_gender},#{member_address},#{member_address_detail},#{member_phone},#{member_email})
+	</insert>
 </mapper>

@@ -47,6 +47,8 @@
 		<input value="${qna.qna_board_lock}" name="qna_board_lock" type="hidden">
 		<input value="${qna.qna_board_title}" name="qna_board_title" type="hidden">
 		<input value="${qna.product_id}" name="product_id" type="hidden">
+		<input value="${qna.member_id}" name="qna_board_querist" type="hidden">
+		<input value="${member_id}" name="member_id" type="hidden">
 		<table>                    
 			<tr>
 				<td><textarea name="qna_board_content">답변내용입니다.</textarea></td>

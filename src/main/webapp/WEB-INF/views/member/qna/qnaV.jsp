@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
@@ -102,31 +103,31 @@ textarea {
 	<table>
 		<tr>
 			<th>구분</th>
-			<td>배송</td>
+			<td>${qna.qna_board_type}</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="6">배송문의입니다?<img id="lock" src="images/lock.png"
+			<td colspan="6">${qna.qna_board_title}<img id="lock" style="display:${(qna.qna_board_lock == 0)?'none':''}" src="images/lock.png"
 				alt="잠금" /></td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td>hong</td>
+			<td>${qna.member_id}</td>
 			<th>작성일</th>
-			<td>2021-09-07</td>
+			<td><fmt:formatDate value="${qna.qna_board_date}" pattern="yyyy-MM-dd" /></td>
 			<th>조회수</th>
-			<td>10</td>
+			<td>${qna.qna_board_hit}</td>
 		</tr>
 		<tr>
-			<td id="content" colspan="6">언제도착할까요</td>
+			<td id="content" colspan="6">${qna.qna_board_content}</td>
 		</tr>
 	</table>
 	<div id=btn>
 		<button onclick="location.href='qnaMain'" >목록으로</button>
-		<div id="buttons">
-			<button type="button" onclick="location.href='qnaM'">수정</button>
+		<div id="buttons" style="display:${(qna.member_id != member_id)?'none':''}">
+			<button type="button" style="display:${(qna.qna_board_reply_state == 1)?'none':''}" onclick="location.href='qnaM?qna_board_id=${qna.qna_board_id}'">수정</button>
 			<button type="button"
-				onclick="window.open('qnaAlert','','width=600, height=200')">삭제</button>
+				onclick="window.open('qnaAlert?qna_board_id=${qna.qna_board_id}','','width=600, height=200')">삭제</button>
 		</div>
 	</div>
 	<br>

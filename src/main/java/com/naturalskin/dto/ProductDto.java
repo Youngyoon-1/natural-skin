@@ -10,8 +10,10 @@ public class ProductDto {
     private String product_content_img_path;
     private int product_stock;
     private String product_category;
-    private String product_content;
     private Date product_date;
+    private String product_capacity;
+    private String product_header_content;
+    private String product_main_content;
     private String findBy;
     
 	public String getFindBy() {
@@ -62,17 +64,29 @@ public class ProductDto {
 	public void setProduct_category(String product_category) {
 		this.product_category = product_category;
 	}
-	public String getProduct_content() {
-		return product_content;
-	}
-	public void setProduct_content(String product_content) {
-		this.product_content = product_content;
-	}
 	public Date getProduct_date() {
 		return product_date;
 	}
 	public void setProduct_date(Date product_date) {
 		this.product_date = product_date;
+	}
+	public String getProduct_capacity() {
+		return product_capacity;
+	}
+	public void setProduct_capacity(String product_capacity) {
+		this.product_capacity = product_capacity;
+	}
+	public String getProduct_header_content() {
+		return product_header_content;
+	}
+	public void setProduct_header_content(String product_header_content) {
+		this.product_header_content = product_header_content;
+	}
+	public String getProduct_main_content() {
+		return product_main_content;
+	}
+	public void setProduct_main_content(String product_main_content) {
+		this.product_main_content = product_main_content;
 	}
     
     

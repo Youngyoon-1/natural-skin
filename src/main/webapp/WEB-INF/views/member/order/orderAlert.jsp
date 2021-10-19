@@ -15,8 +15,8 @@
 	<main>
 		<p>주문이 완료됐습니다!</p>
 		<p>Natural Skin을 이용해주셔서 감사합니다!</p>
-		<button id="btns" type="button" onclick="window.close(); opener.close();opener.opener.location.href='/'">메인으로</button>
-		<button type="button"type="button" onclick="window.close(); opener.close(); opener.opener.location.href='myPageOrder'">주문현황보기</button>		
+		<button id="btns" type="button" onclick="window.close(); opener.location.href='/'">메인으로</button>
+		<button type="button"type="button" onclick="window.close(); opener.location.href='myPageOrder?member_order_id=${param.member_order_id}'">주문현황보기</button>		
 	</main>
 	</form>
 </body>

@@ -137,22 +137,33 @@
   <img id="login" src="images/login-top.png">
     <h1>로그인</h1>
     <hr>
-    <div class="login">
-	    <input type="text" placeholder="Id">
-	    <input type="password" placeholder="Password">
-	    <div id="flexBox2">
-	    	<div><input id="checkBox" type="checkbox">아이디 저장</div>
-	    	<div><a href="loginSearch">아이디</a> / <a href="loginSearch2">비밀번호 찾기</a></div>
+    <form action="loginDo" method="post">
+	    <div class="login">
+		    <input name="member_id" value="${cookie.savedMemberId.value}" type="text" placeholder="Id">
+		    <input name="member_pw" type="password" placeholder="Password">
+		    <div id="flexBox2">
+		    	<div><input id="checkBox" name="isChecked" type="checkbox" value="checked" ${(cookie.savedMemberId.value == null)?'':'checked'}>아이디 저장</div>
+		    	<div><a href="loginSearch">아이디</a>/<a href="loginSearch2">비밀번호 찾기</a></div>
+		    </div>
+		    <button>로그인</button>
+		    <div id="joinBox">
+		    	<p>회원이 아니신가요?<br>고객님만을 위한 다양한 혜택이 준비되어 있습니다.</p>
+		    	<button id="joinBtn" type="button" onclick="location.href='join'">회원가입</button>
+		    </div>
 	    </div>
-	    <button>로그인</button>
-	    <div id="joinBox">
-	    	<p>회원이 아니신가요?<br>고객님만을 위한 다양한 혜택이 준비되어 있습니다.</p>
-	    	<button id="joinBtn" onclick="location.href='join'">회원가입</button>
-	    </div>
-    </div>
+    </form>
     <c:import url="../../footer.jsp"/>
   <script>
+  	<c:if test="${msg != null}">
+  		alert('${msg}');
+  	</c:if>
+  	<c:if test="${showMemberId != null}">
+  		window.open('searchIdAlert?member_id=${memberDto.member_id}','','width=600, height=200');
+	</c:if>
+	/* <c:if test="${showMemberPw != null}">
+		window.open('searchPwAlert','','width=600, height=200');
+		window.open('searchPwAlert?member_id=${memberDto.member_id}','','width=600, height=200');
+	</c:if> */
   </script>
- 
 </body>
 </html>

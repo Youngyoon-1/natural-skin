@@ -121,44 +121,46 @@ textarea {
 				<h2>문의글수정</h2>
 				<br>
 				<hr class="second-hr" style="border: solid 1px;">
-				<form action="">
+				<form action="modifyQna" method="post" onsubmit="return checkForm()">
+				<input type="hidden" value="${qna.qna_board_id}" name="qna_board_id">
 				<table>
 					<tr>
 						<th>구분</th>
-						<td><select id="qna-box" onchange="select()">
-                                 <option value=>배송</option>
-                                 <option value="">상품</option>
+						<td><select id="qna-box" name="qna_board_type" onchange="select()">
+                                 <option ${(qna.qna_board_type == "배송")?'selected':''} value="배송">배송</option>
+                                 <option ${(qna.qna_board_type == "상품")?'selected':''} value="상품">상품</option>
                                  </select>
-                                 <select id="product" onchange="" style="display:none">
-                                 <option value=>상품1</option>
-                                 <option value=>상품2</option>
-                                 <option value=>상품3</option>
+                                 <select id="product" onchange="" style="display:${(qna.qna_board_type == '상품')?'':'none'}">
+                                 <c:forEach var="product" items="${productList}">
+                                 	<option ${(qna.product_id == product.product_id)?'selected':''} value="${product.product_id}">${product.product_name}</option>
+                                 </c:forEach>
                                  </select>
                                                                                                                    
                                                                     
-						<td><div>비밀글<input type="checkbox" id="secret-check" value="secret-content"></div></td>
+						<td><div>비밀글<input type="checkbox" ${(qna.qna_board_lock == 1)?'checked':''} name="qna_board_lock" id="secret-check" value=1></div></td>
 					</tr>
 					<tr>
 						<th><label id="title-label">제목</label></th>
-						<td colspan="6"><input id="qna-title" value="배송문의입니다" type="text"></td>
+						<td colspan="6"><input id="qna-title" name="qna_board_title" value="${qna.qna_board_title}" type="text"></td>
 					</tr>
 					<tr>
-						<td colspan="6"><textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)"> 배송문의입니다.
-		</textarea></td>
+						<td colspan="6"><textarea id="content" name="qna_board_content">${qna.qna_board_content}</textarea></td>
 					</tr>
 				</table>
 				<div id="buttons">
 					<button type="button"
 						onclick="history.back()">취소</button>
-					<button type="button" onclick="location.href='qnaM'">수정</button>
+					<button>수정</button>
 				</div>
 				</form>
 				<br>
 				<br>
 				<c:import url="../../footer.jsp"/>
+				<script src="js/user/qna/qnaM.js"></script>
 				<script>
+				let qnaSelect = document.getElementById("qna-box");
+				let secondSelBox = document.getElementById("product");
 				function select(){
-					var qnaSelect = document.getElementById("qna-box");
 					var selected = qnaSelect.options[qnaSelect.selectedIndex].text;
 					if(selected == '상품'){
 						product.style.display = "inline-block";
@@ -167,15 +169,14 @@ textarea {
 						product.style.display = "none";
 					}
 				    
-		   }
-		   function resize(obj){
-			obj.style.height = '1px';
-			obj.style.height = (12 + obj.scrollHeight) + 'px';
-			}
-				
+		   		}
+				function checkForm(){
+					if(qnaSelect.value === "상품"){
+						secondSelBox.name = "product_id";
+					}
+				}
 			
 				</script>
-				<script src="js/user/qna/qnaM.js"></script>
 			</body>
 
 			</html>

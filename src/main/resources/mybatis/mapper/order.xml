@@ -3,6 +3,9 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naturalskin.dao.OrderDao">
+	<select id="getSeqNextVal" resultType="int">
+		select member_order_seq.nextval from dual 
+	</select>
 	<select id="findList" resultType="com.naturalskin.dto.OrderDto">
 		select * from(
 			select a.*, rownum as rn from(
@@ -10,9 +13,9 @@
 				<choose>
 					<when test="orderDto.findBy == 'member_id'">where member_id = #{orderDto.member_id}</when>
 					<when test="orderDto.findBy == 'member_name'">where member_name = #{orderDto.member_name}</when>
-					<when test="orderDto.findBY == 'member_order_id'">where member_order_id = #{orderDto.member_order_id}</when>
+					<when test="orderDto.findBy == 'member_order_id'">where member_order_id = #{orderDto.member_order_id}</when>
 				</choose>
-				order by member_order_date desc)a
+				order by member_order_id desc)a
 		) where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
 	</select>
 	<select id="findOrderCount" resultType="int">
@@ -24,8 +27,19 @@
 			<when test="findBy == 'member_order_state'">where member_order_state = #{member_order_state}</when>
 		</choose>
 	</select>
+	<select id="findOrderCountById" resultType="int">
+		select count(*) from member_order where member_id = #{member_id}
+	</select>
 	<select id="findById" resultType="com.naturalskin.dto.OrderDto">
-		select * from member_order where member_id = #{member_id}
+		select * from member_order where member_order_id = #{member_order_id}
+	</select>
+	<select id="findListById" resultType="com.naturalskin.dto.OrderDto">
+		select * from(
+				select rownum rn, a.* from (
+					select * from member_order where member_id = #{orderDto.member_id} order by member_order_id desc
+					)a
+				)
+		where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
 	</select>
 	<update id="modify">
 		update member_order set member_order_receive_name = #{member_order_receive_name},
@@ -33,9 +47,24 @@
 		member_order_receive_address_detail = #{member_order_receive_address_detail},
 		member_order_receive_phone = #{member_order_receive_phone},
 		member_order_state = #{member_order_state}
-		where member_id = #{member_id}
+		where member_order_id = #{member_order_id}
+	</update>
+	<update id="update">
+		update member_order set member_order_receive_name = #{member_order_receive_name},
+		member_order_receive_address = #{member_order_receive_address},
+		member_order_receive_address_detail = #{member_order_receive_address_detail},
+		member_order_receive_phone = #{member_order_receive_phone}
+		where member_order_id = #{member_order_id}
+	</update>
+	<update id="updateState">
+		update member_order set member_order_state = '주문취소요청'
+		where member_order_id = #{member_order_id}
 	</update>
 	<delete id="delete">
-		delete from member_order where member_id = #{member_id}
+		delete from member_order where member_order_id = #{member_order_id}
 	</delete>
+	<insert id="insert">
+		insert into member_order(member_order_id, member_id, member_name,member_order_price, member_order_payment_method, member_order_receive_address, member_order_receive_address_detail, member_order_receive_name,member_order_receive_phone,product_name)
+		values(#{member_order_id}, #{member_id}, #{member_name},#{member_order_price}, #{member_order_payment_method}, #{member_order_receive_address}, #{member_order_receive_address_detail}, #{member_order_receive_name},#{member_order_receive_phone},#{product_name_arr})
+	</insert>
 </mapper>

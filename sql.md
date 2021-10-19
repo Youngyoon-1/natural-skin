@@ -42,20 +42,24 @@ create table product(
     product_stock number,
     product_category varchar2,
     product_content varchar2,
-    product_date date default sysdate
+    product_date date default sysdate,
+    product_header_content varchar2,
+    product_main_content varchar2,
+    product_capacity varchar2
 );
 create sequence product_seq;
 
 create table review_board(
-    review_board_id number(2) primary key,
-    member_id varchar2(20 char), 
-    product_id number(2),
-    review_board_title varchar2(50 char),
-    review_board_content varchar2(500 char),
-    review_board_date date,
+    review_board_id number primary key,
+    member_id varchar2, 
+    product_id number,
+    product_name varchar2,
+    review_board_title varchar2,
+    review_board_content varchar2,
+    review_board_date date default sysdate,
     review_board_score number,
-    review_board_hit number,
-    review_board_img_path varchar2(50 char),
+    review_board_hit number default 0,
+    review_board_img_path varchar2,
     constraint fk_member_id foreign key(member_id) 
     references member(member_id) ON DELETE CASCADE,
     constraint fk_product_id foreign key(product_id) 
@@ -80,7 +84,27 @@ create table review_reply(
     constraint fk_reply_member_id foreign key(member_id)
     references member(member_id)ON DELETE CASCADE
 );
+ //임
+create table review_reply(
+    review_reply_id number primary key,
+    review_board_id number,
+    member_id varchar2,
+    review_reply_content varchar2,
+    review_reply_date date default sysdate,
+    review_reply_group_no number,
+    constraint fk_review_board_id foreign key(review_board_id)
+    references review_board(review_board_id)ON DELETE CASCADE,
+    constraint fk_reply_member_id foreign key(member_id)
+    references member(member_id)ON DELETE CASCADE
+);
 create sequence review_reply_seq;
+
+insert into review_reply (review_reply_id,review_board_id,member_id,review_reply_content)
+values(review_reply_seq.nextval,12,'hong1','댓글1')
+insert into review_reply (review_reply_id,review_board_id,member_id,review_reply_content)
+values(review_reply_seq.nextval,12,'hong1','댓글2')
+insert into review_reply (review_reply_id,review_board_id,member_id,review_reply_content,review_reply_group_no)
+values(review_reply_seq.nextval,12,'hong1','대댓글1',1)
 
 create table qna_board(
     qna_board_id number primary key,
@@ -94,6 +118,7 @@ create table qna_board(
     qna_board_lock number default 0,
     qna_board_reply_state number,
     qna_board_hit number default 0,
+    qna_board_querist varchar2,
     constraint fk_qna_member_id foreign key(member_id)
     references member(member_id) ON DELETE CASCADE,
     constraint fk_qna_product_id foreign key(product_id)
@@ -122,7 +147,11 @@ create table basket(
     basket_id number primary key,
     member_id varchar2(20 char),
     product_id number,
-    basket_amount number,
+   	product_amount number,
+   	product_img_path varchar2,
+   	product_price number,
+   	product_name varchar2,
+   	basket_price number,
     constraint fk_basket_member_id foreign key(member_id)
     references member(member_id) ON DELETE CASCADE,
     constraint fk_basket_product_id foreign key(product_id)
@@ -142,6 +171,7 @@ create table member_order(
     member_order_receive_address_detail varchar2,
     member_order_receive_name varchar2,
     member_order_receive_phone varchar2,
+    product_name varchar2,
     constraint fk_order_member_id foreign key(member_id)
     references member(member_id)ON DELETE CASCADE
 );
@@ -152,16 +182,17 @@ insert into member_order (member_order_id,  member_id, member_order_receive_name
 create table order_detail(
     order_detail_id number primary key,
     member_order_id number,
-    member_id varchar2(20 char),
+    member_id varchar2,
     product_id number,
     order_detail_amount number,
     order_detail_price number,
-    order_detail_review number(1),
+    product_name varchar2,
+    product_price number,
+    product_img_path varchar2,
+    order_detail_review number default 0,
     constraint fk_order_id foreign key(member_order_id)
     references member_order(member_order_id)on delete cascade,
     constraint fk_detail_member_id foreign key(member_id)
-    references member(member_id)on delete cascade,
-    constraint fk_detail_product_id foreign key(product_id)
-    references product(product_id)on delete cascade
+    references member(member_id)on delete cascade
 );
 create sequence order_detail_seq;

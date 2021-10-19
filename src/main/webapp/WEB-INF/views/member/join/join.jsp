@@ -94,9 +94,9 @@ label, input, select{
 	<hr style="border: solid 2px;">
 	<div>
       <div>
-      	<div class="agree"><input class="check" type="checkbox">이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택)에 모두 동의합니다.</div>
+      	<div class="agree"><input id="allSelect" class="check" type="checkbox" onchange="selectAll();" >이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택)에 모두 동의합니다.</div>
       	<p style="clear: both; font-size: 1px">&nbsp;</p>
-        <div class="agree"><input class="check" type="checkbox">이동약관 동의(필수)</div>
+        <div class="agree"><input id="termsOfUse" class="check" type="checkbox" onchange="clickTermsOfUse();">이용약관 동의(필수)</div>
         <p style="clear: both; font-size: 1px">&nbsp;</p>
         <div><textarea name="" id="" cols="30" rows="10">
 [제1장 총칙]
@@ -339,7 +339,7 @@ label, input, select{
 (시행일) 위 약관은 200*년 **월 **일 부터 시행합니다.</textarea></div>          
       </div>
         <div>
-        <div class="agree"><input class="check" type="checkbox">개인정보 수집 및 이용 동의(필수)</div>
+        <div class="agree"><input id="collectionInfo" class="check" type="checkbox" onchange="clickCollectionInfo();" >개인정보 수집 및 이용 동의(필수)</div>
         <p style="clear: both; font-size: 1px">&nbsp;</p>
         <div><textarea name="" id="" cols="30" rows="10">
 ::: 개인정보취급방침 ::::
@@ -460,7 +460,7 @@ OOOOO(이하 '회사'라 합니다.)은 회원의 사생활 및 개인정보를 
 시행일자 : 200 년 OO월 OO일
           </textarea></div>    
         <div>
-	        <div class="agree"><input class="check" type="checkbox">위치정보 이용약관 동의(선택)</div>
+	        <div class="agree"><input id="locationInfo" class="check" type="checkbox">위치정보 이용약관 동의(선택)</div>
 	        <p style="clear: both; font-size: 1px">&nbsp;</p>
 	        <div><textarea name="" id="" cols="30" rows="10">
 위치정보 이용약관에 동의하시면, 위치를 활용한 광고 정보 수신 등을 포함하는 서비스를 이용할 수 있습니다.
@@ -538,11 +538,70 @@ OOOOO(이하 '회사'라 합니다.)은 회원의 사생활 및 개인정보를 
       </div>      
       </div>
     </div>
-    
     <div id="btns">
-    	<button type="button" onclick="location.href='join2'">확인</button>
+    	<button type="button" onclick="moveToJoin2();">확인</button>
 		<button type="button" onclick="location.href='/'">취소</button>
 	</div><br><br>
 	<c:import url="../../footer.jsp"/>
+	<script>
+		<c:if test="${msg != null}">
+			alert('${msg}');
+		</c:if>
+		let allSelect = document.getElementById("allSelect");
+		let termsOfUse = document.getElementById("termsOfUse");
+		let collectionInfo = document.getElementById("collectionInfo");
+		let locationInfo = document.getElementById("locationInfo");
+		
+		let flagObj = {
+			flag1:false,
+			flag2:false
+		};
+		function selectAll(){
+			if(allSelect.checked){
+				termsOfUse.checked = true;
+				collectionInfo.checked = true;
+				locationInfo.checked = true;
+				for(i in flagObj){
+					flagObj[i] = true;
+				}
+				console.log(flagObj);
+			}else{
+				termsOfUse.checked = false;
+				collectionInfo.checked = false;
+				locationInfo.checked = false;
+				for(i in flagObj){
+					flagObj[i] = false;
+				}
+				console.log(flagObj);
+			}
+		}
+	 	function moveToJoin2(){
+	 		if(flagObj.flag1 && flagObj.flag2){
+	 			location.href='join2';
+	 		}else{
+	 			alert("필수약관에 동의해주세요");
+	 		}
+		}
+		
+		function clickTermsOfUse(){
+			allSelect.checked = false;
+			if(termsOfUse.checked){
+				flagObj.flag1 = true;
+				console.log(flagObj);
+			}else{
+				flagObj.flag1 = false;
+			}
+		}
+		
+		function clickCollectionInfo(){
+			allSelect.checked = false;
+			if(collectionInfo.checked){
+				flagObj.flag2 = true;
+				console.log(flagObj);
+			}else{
+				flagObj.flag2 = false;
+			}
+		}
+	</script>
 </body>
 </html>

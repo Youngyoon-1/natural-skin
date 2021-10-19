@@ -6,7 +6,7 @@ public class PagingDto {
 	private int startPage; 
 	private int endPage;
 	private int countPage = 5;   //보여줄페이지 갯수
-	private int countPerPage = 50; //한페이지에 나타낼 갯수 //초기값추후에 수정하기 재사용시 50은 큰수같음
+	private int countPerPage = 50; //한페이지에 나타낼 갯수 
 	private int startRN;
 	private int endRN;
 

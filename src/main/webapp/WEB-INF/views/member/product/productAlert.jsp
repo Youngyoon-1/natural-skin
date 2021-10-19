@@ -13,7 +13,7 @@
 	<header><h3>장바구니</h3></header>
 	<main>
 		<br><p>해당 상품이 장바구니에 담겼습니다.</p>
-		<button id="first-btn" type="button" onclick="window.close()">취소</button>
+		<button id="first-btn" type="button" onclick="window.close();">취소</button>
 		<button type="button" onclick="window.close(); opener.location.href='basket'">장바구니로 이동</button>
 	</main>
 </body>

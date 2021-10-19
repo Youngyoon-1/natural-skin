@@ -46,4 +46,12 @@ public class NoticeService {
 	public int delete(NoticeDto noticeDto) {
 		return noticeDao.delete(noticeDto);
 	}
+
+	public int updateHit(NoticeDto noticeDto) {
+		return noticeDao.updateHit(noticeDto);
+	}
+
+	public List<NoticeDto> findListByCount(int count) {
+		return noticeDao.findListByCount(count);
+	}
 }

@@ -22,4 +22,8 @@ public interface NoticeDao {
 
 	int delete(NoticeDto noticeDto);
 
+	int updateHit(NoticeDto noticeDto);
+
+	List<NoticeDto> findListByCount(int count);
+
 }

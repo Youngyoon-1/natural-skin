@@ -36,4 +36,10 @@ public interface ProductDao {
 
 
 	int delete(ProductDto productDto);
+
+
+	List<ProductDto> findAll();
+
+
+	List<ProductDto> findByCategory(ProductDto productDto);
 }

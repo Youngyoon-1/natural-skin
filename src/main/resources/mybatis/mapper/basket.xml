@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.BasketDao">
+	<insert id="insert">
+		insert into basket	(basket_id,member_id,product_id,product_amount,product_name,product_price,product_img_path,basket_price)
+		values(basket_seq.nextval,#{member_id},#{product_id},#{product_amount},#{product_name},#{product_price},#{product_img_path},#{product_price}*#{product_amount})
+	</insert>
+	<select id="findByIds" resultType="com.naturalskin.dto.BasketDto">
+		select * from basket where member_id = #{member_id} and product_id = #{product_id}
+	</select>
+	<select id="findById" resultType="com.naturalskin.dto.BasketDto">
+		select * from basket where member_id = #{member_id}
+	</select>
+	<select id="getBasketPrice" resultType="int">
+		select basket_price from basket where member_id = #{member_id} and product_id = #{product_id}
+	</select>
+	<update id="add">
+		update basket set product_amount = product_amount + #{product_amount}, basket_price = (product_amount + #{product_amount}) * product_price
+			 where member_id = #{member_id} and product_id = #{product_id}
+	</update>
+	<update id="modify">
+		update basket set product_amount = #{product_amount}, basket_price = #{product_amount} * product_price
+			 where member_id = #{member_id} and product_id = #{product_id}
+	</update>
+	<delete id="deleteById">
+		delete from basket where member_id = #{member_id} and product_id = #{product_id}
+	</delete>
+	<delete id="deleteAll">
+		delete from basket where member_id = #{member_id}
+	</delete>
+</mapper>

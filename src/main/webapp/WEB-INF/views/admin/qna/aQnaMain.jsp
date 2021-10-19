@@ -9,6 +9,11 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" href="css/admin/qna/aQnaMain.css">
+<style>
+#mainBtn{	
+	margin-bottom: 50px;
+}
+</style>
 </head>
 <body>
 	<c:import url="../../header.jsp"/>
@@ -88,7 +93,7 @@
 			마지막
 		</a>
 	</div>
-	<button type="button" onClick="location.href='aMain'">메인으로</button>
+	<button id="mainBtn" type="button" onClick="location.href='aMain'">메인으로</button>
 	<script>
 		let input = document.getElementById("input");
 		let select_box = document.getElementById("select-box");

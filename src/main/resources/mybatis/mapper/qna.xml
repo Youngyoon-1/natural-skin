@@ -9,10 +9,17 @@
 				select * from qna_board 
 				<choose>
 					<when test="qnaDto.findBy == 'member_id'">where member_id = #{qnaDto.member_id}</when>
-					<when test="qnaDto.findBy == 'qna_board_type'">where qna_board_type = #{qnaDto.qna_board_type}</when>
+					<when test="qnaDto.findBy == 'qna_board_type' and qnaDto.qna_board_type == '배송'">where qna_board_type = #{qnaDto.qna_board_type}</when>
+					<when test="qnaDto.findBy == 'qna_board_type' and qnaDto.qna_board_type == '상품' and qnaDto.product_id != 0">
+						where qna_board_type = #{qnaDto.qna_board_type} and product_id = #{qnaDto.product_id}
+					</when>
+					<when test="qnaDto.findBy == 'qna_board_type' and qnaDto.qna_board_type == '상품' and qnaDto.product_id == 0">
+						where qna_board_type = #{qnaDto.qna_board_type}
+					</when>
 					<when test="qnaDto.findBy == 'qna_board_reply_state'">where qna_board_reply_state = #{qnaDto.qna_board_reply_state}</when>
+					<when test="qnaDto.findBy == 'qna_board_title'">where qna_board_title = #{qnaDto.qna_board_title}</when>
 				</choose>
-				order by qna_board_group_no desc, qna_board_date 
+				order by qna_board_group_no desc, qna_board_id 
 			)a
 		)where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
 	</select>
@@ -20,15 +27,47 @@
 		select count(*) from qna_board
 		<choose>
 			<when test="findBy == 'member_id'">where member_id = #{member_id}</when>
-			<when test="findBy == 'qna_board_type'">where qna_board_type = #{qna_board_type}</when>
+			<when test="qna_board_type == '배송'">
+				where qna_board_type = #{qna_board_type}
+			</when>
+			<when test="qna_board_type == '상품' and product_id == 0">
+				where qna_board_type = #{qna_board_type}
+			</when>
+			<when test="qna_board_type == '상품' and product_id != 0">
+				where product_id = #{product_id}
+			</when>
+			<when test="findBy == 'qna_board_title'">
+				where qna_board_title = #{qna_board_title}
+			</when>
 			<when test="findBy == 'qna_board_reply_state'">where qna_board_reply_state = #{qna_board_reply_state}</when>
 		</choose>
 	</select>
 	<select id="findByGroup" resultType="com.naturalskin.dto.QnaDto">
-		select * from qna_board where qna_board_group_no = #{qna_board_group_no} order by qna_board_date
+		select * from qna_board where qna_board_group_no = #{qna_board_group_no} order by qna_board_id
 	</select>
 	<select id="findById" resultType="com.naturalskin.dto.QnaDto">
 		select * from qna_board where qna_board_id = #{qna_board_id}
+	</select>
+	<select id="findCountById" resultType="int">
+		select count(*) from qna_board where member_id = #{member_id}
+	</select>
+	<select id="findListById" resultType="com.naturalskin.dto.QnaDto">
+		select * from (
+			select rownum rn,a.* from(
+				select * from qna_board 
+				where member_id = #{qnaDto.member_id} or qna_board_querist = #{qnaDto.member_id}
+				order by qna_board_group_no desc, qna_board_id
+			)a
+	    )
+	    where rn between #{pagingDto.startRN} and #{pagingDto.endRN}
+	</select>
+	<select id="findByProductId" resultType="com.naturalskin.dto.QnaDto">
+		select * from(
+			select rownum rn, a.* from(
+				select * from qna_board where product_id = #{productDto.product_id} order by qna_board_group_no desc, qna_board_id
+				)a
+			)
+		where rn between 1 and #{count}
 	</select>
 	<update id="modify">
 		update qna_board set qna_board_content = #{qna_board_content} where qna_board_id = #{qna_board_id}
@@ -55,16 +94,47 @@
 			</otherwise>
 		</choose>
 	</update>
+	<update id="updateHit">
+		update qna_board set qna_board_hit = qna_board_hit + 1
+		where qna_board_id = #{qna_board_id}
+	</update>
+	<update id="modifyQna">
+		update qna_board set 
+		qna_board_type = #{qna_board_type},
+		<if test="qna_board_type == '상품'">
+			product_id = #{product_id},
+		</if>
+		<if test="qna_board_type != '상품'">
+			product_id = null,
+		</if>
+		qna_board_lock = #{qna_board_lock},
+		qna_board_title = #{qna_board_title},
+		qna_board_content = #{qna_board_content}
+		where qna_board_id = #{qna_board_id}
+	</update>
 	<insert id="insert">
 		<choose>
 			<when test="product_id == 0">
-				insert into qna_board(qna_board_id, member_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state) 
-				values(qna_board_seq.nextval, 'admin',#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},#{qna_board_id},2)
+				insert into qna_board(qna_board_id, member_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state,qna_board_querist) 
+				values(qna_board_seq.nextval,#{member_id},#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},#{qna_board_id},2,#{qna_board_querist})
 			</when>
 			<otherwise>
-				insert into qna_board(qna_board_id, member_id, product_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state) 
-				values(qna_board_seq.nextval, 'admin',#{product_id},#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},#{qna_board_id},2)
+				insert into qna_board(qna_board_id, member_id, product_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state,qna_board_querist) 
+				values(qna_board_seq.nextval,#{member_id},#{product_id},#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},#{qna_board_id},2,#{qna_board_querist})
 			</otherwise>
 		</choose>
+	</insert>
+	<insert id="writeQna">
+	<choose>
+		<when test="product_id == 0">
+			insert into qna_board(qna_board_id, member_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state) 
+			values(qna_board_seq.nextval,#{member_id},#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},qna_board_seq.currval,0)
+		</when>
+		<otherwise>
+			insert into qna_board(qna_board_id, member_id, product_id, qna_board_title, qna_board_content, qna_board_type,qna_board_lock,qna_board_group_no,qna_board_reply_state) 
+			values(qna_board_seq.nextval,#{member_id},#{product_id},#{qna_board_title},#{qna_board_content},#{qna_board_type},#{qna_board_lock},qna_board_seq.currval,0)
+		</otherwise>
+	</choose>
+	
 	</insert>
 </mapper>

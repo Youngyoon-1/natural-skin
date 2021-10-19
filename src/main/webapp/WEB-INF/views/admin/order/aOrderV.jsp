@@ -14,7 +14,8 @@
 <body>
 	<h2>주문상세페이지</h2>
 	<hr style="border: solid 1px;">
-	<form action="aOrderModify?member_id=${param.member_id}" method="post" onsubmit="return aOrderM();">
+	<form action="aOrderModify" method="post" onsubmit="return aOrderM();">
+		<input value="${order.member_order_id}" name="member_order_id" type="hidden">
 		<label>주문자아이디</label><span>${order.member_id}</span>
 		<label>주문일</label>
 		<span>
@@ -46,7 +47,7 @@
 		<div id="btns">
 			<button type="button" onclick="window.close()">취소</button>
 			<button type="submit">수정</button>
-			<button type="button" onclick="window.open('aOrderAlert?member_id=${param.member_id}','','width=600, height=200')">삭제</button>
+			<button type="button" onclick="window.open('aOrderAlert?member_order_id=${order.member_order_id}','','width=600, height=200')">삭제</button>
 		</div>
 	</form>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

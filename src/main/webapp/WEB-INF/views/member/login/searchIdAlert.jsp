@@ -56,9 +56,9 @@ main{
 	<header><h3>아이디찾기 결과</h3></header>
 	<main>
 		<p>고객님의 소중한 정보입니다.<br><br>
-		- 아이디 <input type="text" value="son123" readonly>
+		- 아이디 <input type="text" value="${param.member_id}" readonly>
 		</p>
-		<button onclick="window.close(); opener.location.href='login'" type="">확인</button>
+		<button onclick="window.close();" type="">확인</button>
 	</main>
 	<script src="js/user/qna/qnaAlert.js"></script>
 </body>

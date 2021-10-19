@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 		<%@ page trimDirectiveWhitespaces="true" %>
 			<!DOCTYPE html>
 			<html>
@@ -103,20 +104,20 @@ textarea {
 				<table id="ask-table">
 					<tr>
 						<th>구분</th>
-						<td>배송</td>
+						<td>${list[0].qna_board_type}</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td colspan="6">배송문의입니다<img id="lock" src="images/lock.png" alt="잠금" /></td>
+						<td colspan="6">${list[0].qna_board_title}<img id="lock" style="display:${(list[0].qna_board_lock == 0)?'none':''}" src="images/lock.png" alt="잠금" /></td>
 					</tr>
 					<tr>
 						<th>아이디</th>
-						<td>hong</td>
+						<td>${list[0].member_id}</td>
 						<th>작성일</th>
-						<td>2021-09-07</td>
+						<td><fmt:formatDate value="${list[0].qna_board_date}" pattern="yyyy-MM-dd" /></td>
 					</tr>
 					<tr>
-						<td id="content" colspan="6">언제도착할까요</td>
+						<td id="content" colspan="6">${list[0].qna_board_content}</td>
 						
 					</tr>
 					
@@ -126,25 +127,25 @@ textarea {
 				<table id="answer-table">
 					<tr>
 						<th>구분</th>
-						<td>배송</td>
+						<td>${list[1].qna_board_type}</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td colspan="6"><img id="reply-logo" src="images/re.png" alt="잠금" />배송문의입니다<img id="lock" src="images/lock.png" alt="잠금" /></td>
+						<td colspan="6"><img id="reply-logo" src="images/re.png" alt="잠금" />${list[1].qna_board_title}<img id="lock" style="display:${(list[1].qna_board_lock == 0)?'none':''}" src="images/lock.png" alt="잠금" /></td>
 					</tr>
 					<tr>
 						<th>아이디</th>
-						<td>hong</td>
+						<td>${list[1].member_id}</td>
 						<th>작성일</th>
-						<td>2021-09-09</td>
+						<td><fmt:formatDate value="${list[1].qna_board_date}" pattern="yyyy-MM-dd" /></td>
 						<th>조회수</th>
-						<td>0</td>
+						<td>${list[1].qna_board_hit}</td>
 					</tr>
 					<tr>
-						<td id="content" colspan="6">죄송합니다. 오늘 발송 처리 하였습니다</td>
+						<td id="content" colspan="6">${list[1].qna_board_content}</td>
 					</tr>
 				</table>
-				<button id="toList" type="button" onclick="location.href='qnaMain'">목록으로</button>
+				<button id="toList" type="button" onclick="history.back()">목록으로</button>
 				<br>
 				<br>
 				<br>

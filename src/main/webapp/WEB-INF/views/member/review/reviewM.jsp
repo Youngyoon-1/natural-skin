@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 		<%@ page trimDirectiveWhitespaces="true" %>
 			<!DOCTYPE html>
 			<html>
@@ -147,6 +148,15 @@ textarea {
 .tr{
 	height: 48px;
 }
+#review-image img{
+						margin:10px 0 0 15px;
+					}
+					#review-image span{
+						margin: 7px 10px 5px 0px;
+					}
+					#review-image span:hover{
+						cursor:pointer;
+					}
 				</style>
 			</head>
 
@@ -158,41 +168,49 @@ textarea {
 				<h2>리뷰수정하기</h2>
 				<br>
 				<hr class="second-hr" style="border: solid 1px;">
-				<form action="">
+				<form action="modifyReview" name="mForm" method="post" onsubmit="return checkForm()">
+				<input type="hidden" id="review_board_img_path" name="review_board_img_path">
+				<input type="hidden" name="review_board_id" value="${review.review_board_id}">
 				<table>
 					<tr class="tr">
 						<th>상품</th>
-						<td colspan="6"><input id="product-name" type="text" readonly value="Natural Soap">                                                                            
+						<td colspan="6"><input id="product-name" type="text" readonly value="${review.product_name}">                                                                            
 			            </td>
 					</tr>
 					<tr class="tr">
 						<th><label id="title-label">제목</label></th>
-						<td colspan="6"><input id="review-title" value="리뷰제목" type="text"></td>
+						<td colspan="6"><input id="review-title" name="review_board_title" value="${review.review_board_title}" type="text"></td>
 					</tr>
 					<tr class="tr">
 					    <th><label id="rating">평가</label></th>
 					    <td>
-                            <input type="radio" name="rating" value="1" id="rate1"><label for="rate1"><img class="star-image" src="images/star1.png" alt="" /> &nbsp;</label>
-                            <input type="radio" name="rating" value="2" id="rate2"><label for="rate2"><img class="star-image" src="images/star2.png" alt="" /> &nbsp;</label>
-                            <input type="radio" name="rating" value="3" id="rate3"><label for="rate3"><img class="star-image" src="images/star3.png" alt="" /> &nbsp;</label>
-                            <input type="radio" name="rating" value="4" id="rate4"><label for="rate4"><img class="star-image" src="images/star4.png" alt="" /> &nbsp;</label>
-                            <input type="radio" name="rating" value="5" id="rate5"><label for="rate5"><img class="star-image" src="images/star5.png" alt="" /></label>
+                            <input type="radio" name="review_board_score" value="1" id="rate1"><label for="rate1"><img class="star-image" src="images/star1.png" alt="" /> &nbsp;</label>
+                            <input type="radio" name="review_board_score" value="2" id="rate2"><label for="rate2"><img class="star-image" src="images/star2.png" alt="" /> &nbsp;</label>
+                            <input type="radio" name="review_board_score" value="3" id="rate3"><label for="rate3"><img class="star-image" src="images/star3.png" alt="" /> &nbsp;</label>
+                            <input type="radio" name="review_board_score" value="4" id="rate4"><label for="rate4"><img class="star-image" src="images/star4.png" alt="" /> &nbsp;</label>
+                            <input type="radio" name="review_board_score" value="5" id="rate5"><label for="rate5"><img class="star-image" src="images/star5.png" alt="" /></label>
                         </td>
-                    <tr class="tr">
+                   <tr class="tr">
                         <th><label id="file">첨부파일</label></th>
-                        <td><input id="image-name" type="text" readonly value="image.png"> <button id="product-choice" onclick="" >파일첨부</button>
-              
+                        <td><input id="image-name" type="file" multiple onchange="addImg()">
                     </tr>
                             
 					<tr>
-						<td colspan="6"><textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)"> 내용</textarea><br>
+						<td colspan="6"><textarea id="content" name="review_board_content">${review.review_board_content}</textarea><br>
+						<label id="review-image">
+						<c:set var="imgArr" value="${fn:split(review.review_board_img_path,',')}" />
+						<c:forEach var="imgPath" items="${imgArr}" >
+							<img id="${imgPath}" width="150" height="150" src="upload/${imgPath}" />
+							<span class="${imgPath}" style="color: red; position: absolute;" onclick="deleteImg(event)">x</span>
+						</c:forEach>
+						</label><br><br>
 					</tr>
 					<tr>
 					
 				</table>
 				<div id="buttons">
-					<button type="button" onclick="history.back()">취소</button>
-					<button type="button" onclick="">수정</button>
+					<button type="button" onclick="cancel()">취소</button>
+					<button onclick="">수정</button>
 				</div>
 				<br>
 				<br>
@@ -200,6 +218,121 @@ textarea {
 				</div>
 				<c:import url="../../footer.jsp"/>
 				<script src="js/user/qna/qnaM.js"></script>
+				<script>
+				let radioArr = document.getElementsByName("review_board_score");
+				let review_board_img_path = document.getElementById("review_board_img_path");
+				let reviewRabel = document.getElementById("review-image");
+				
+				for(radio of radioArr){
+					if(radio.value === '${review.review_board_score}'){
+						radio.checked = true;
+					}
+				}
+				
+				function addImg(){
+					const fileInput = document.getElementById("image-name");
+					const formData = new FormData();
+					for(const file of fileInput.files){
+						formData.append('imgs',file);
+					}
+					const options = {
+							method: 'post',
+							body: formData
+					};
+					fetch('addReviewImg',options)
+					.then(res => res.json())
+					.then(res=>{
+						console.log('Success:',res);
+						let imgPathArr = res.imgPaths.split(',');
+						for(imgPath  of imgPathArr){
+							let img = document.createElement('img');
+							img.src = "upload/"+imgPath;
+							img.id = imgPath;
+							img.width = 150;
+							img.height = 150;
+							reviewRabel.appendChild(img);
+							
+							let span = document.createElement('span');
+							span.innerText = 'x';
+							span.style.color = 'red';
+							span.style.position = "absolute";
+							span.classList.add(imgPath);
+							span.classList.add('tempSpan');
+							reviewRabel.appendChild(span);
+							span.addEventListener('click',deleteImg);
+						}
+					})
+					.catch(err =>{
+						console.error('Error:', err);
+					})
+				}
+				
+				function deleteImg(event){
+					let data = event.target.classList[0];
+					const options = {
+							method:"post",
+							body:data
+					}
+					fetch('deleteReviewImg?review_board_id=${review.review_board_id}',options)
+					.then(res => res.json())
+					.then(res => {
+						console.log("Success:",res);
+						let img = document.getElementById(event.target.classList[0]);
+						img.remove();
+						if(!event.target.classList.contains("tempSpan")){ //기존이미지파일 삭제시 db img path 수정
+							let imgArr = document.querySelectorAll("#review-image img");
+							let arr= [];
+							for(img of imgArr){
+								arr.push(img.id);
+							}
+							let data = arr;
+							const options = {
+									method:'post',
+									body: data
+							}
+							fetch('modifyReviewImg?review_board_id=${review.review_board_id}',options)
+							.then(res => res.json())
+							.then(res => {
+								console.log("Success:",res);
+							})
+							.catch(err => {
+								console.error("Error:",err);
+							})
+						}
+						event.target.remove();
+						console.log(img);
+					})
+					.catch(err => {
+						console.error('Error:',err);
+					});
+				}
+				
+				let flag = true;
+				window.onbeforeunload = function() {
+					if(flag){
+						let spanArr = document.querySelectorAll(".tempSpan");
+						for(span of spanArr){
+							span.click();
+						}		
+					}
+				}
+				function cancel(){
+					let spanArr = document.querySelectorAll(".tempSpan");
+					for(span of spanArr){
+						span.click();
+					}
+					history.back();
+				}
+				function checkForm(){
+					flag = false;
+					let imgArr = document.querySelectorAll("#review-image img");
+					let arr= [];
+					for(img of imgArr){
+						arr.push(img.id);
+					}
+					review_board_img_path.value = arr;
+				}
+				</script>
 			</body>
 
 			</html>

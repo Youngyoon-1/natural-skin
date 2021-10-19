@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naturalskin.dao.ProductDao">
 	<insert id="save">
-		insert into product (product_id,product_category,product_name,product_stock,product_price,product_img_path,product_content_img_path,product_content)
-			values(product_seq.nextval,#{product_category},#{product_name},#{product_stock},#{product_price},#{product_img_path},#{product_content_img_path},#{product_content})
+		insert into product (product_id,product_category,product_name,product_stock,product_price,product_img_path,product_content_img_path,product_capacity,product_header_content,product_main_content)
+			values(product_seq.nextval,#{product_category},#{product_name},#{product_stock},#{product_price},#{product_img_path},#{product_content_img_path},#{product_capacity},#{product_header_content},#{product_main_content})
 	</insert>
 	<select id="findBy" resultType="com.naturalskin.dto.ProductDto">
 		select * from(
@@ -46,10 +46,24 @@
 		product_price = #{product_price},
 		product_img_path = #{product_img_path},
 		product_content_img_path = #{product_content_img_path},
-		product_content = #{product_content}
+		product_capacity = #{product_capacity},
+		product_header_content = #{product_header_content},
+		product_main_content = #{product_main_content}
 		where product_id = #{product_id}
 	</update>
 	<delete id="delete">
 		delete from product where product_id = #{product_id}
 	</delete>
+	<select id="findAll" resultType="com.naturalskin.dto.ProductDto">
+		select * from product order by product_id desc
+	</select>
+	<select id="findByCategory" resultType="com.naturalskin.dto.ProductDto">
+		select * from product 
+		<choose>
+			<when test="findBy != null">
+				where product_category = #{product_category} 
+			</when>
+		</choose>
+		order by product_id desc
+	</select>
 </mapper>

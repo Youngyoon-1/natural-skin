@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -125,16 +126,19 @@ th > span{
 	
 	<table>
 	<tr class="tr">
-		<th id="firstTh">제목&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-		<td colspan="4">공지사항입니다.</td>
+		<th id="firstTh">제목</th>
+		<td colspan="5">${notice.notice_board_title}</td>
 	</tr>
 	<tr class="tr">
-		<th>아이디 &nbsp;<span> 관리자</span></th>
-		<th>작성일 &nbsp;<span> 2021-09-09</span></th>
-		<th>조회수 &nbsp;<span> 0</span></th>
+		<th>아이디</th>
+		<td>${notice.member_id}</td>
+		<th>작성일</th>
+		<td><fmt:formatDate value="${notice.notice_board_date}" pattern="yyyy-MM-dd" /></td>
+		<th>조회수</th>
+		<td>${notice.notice_board_hit}</td>
 	</tr>
 	<tr>
-		<td colspan="4">새로운 공지사항을 알려드립니다.</td>
+		<td colspan="6">&emsp;&emsp;&emsp;&emsp;${notice.notice_board_content}</td>
 	</tr>
 	</table>
 		<div id="btns">

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +32,7 @@
 		margin-left: 50px;
 	    margin-right: 50px;
 	    margin-top: 15px;
+	    clear: both;
 	}
 	#search-logo{
 		vertical-align:middle;
@@ -39,10 +42,9 @@
 		cursor: pointer;
 	}
 	#search-bar{
-		text-align: left;
-		margin-left: 75px;
-		margin-top: 30px;
-		
+		float: right;
+		margin-right: 50px;
+	    margin-bottom: 15px;
 	}
 	h2{
 		font-size: 30px;
@@ -96,12 +98,26 @@
 	.banner-image{
 		width: 100%;
 	}
+	.bold{
+		font-weight:bold;
+	}
 </style>
 </head>
 <body>
 <c:import url="../../header.jsp"/>
 <div><img class="banner-image" src="images/banner2.png"></div>
 	<h1>리뷰게시판</h1>
+	<form action="reviewMain" method="post" onsubmit="return search()">
+	    <div id="search-bar">
+			<select name="findBy" id="select-box" onchange="change(this.value)">
+				<option ${(reviewDto.findBy == '')?'selected':''} value="">전체보기</option>
+				<option ${(reviewDto.findBy == 'review_board_title')?'selected':''} value="review_board_title">제목</option>
+				<option ${(reviewDto.findBy == 'member_id')?'selected':''} value="member_id">아이디</option>
+			</select>
+			<input id="input" type="text" style="display:${(reviewDto.findBy == null || reviewDto.findBy == '')?'none':''}" value="${reviewDto.member_id}${reviewDto.review_board_title}">
+			<input type="image"id="search-logo" src="images/search.png" style="border: solid 0.5px;" >
+		</div>
+	</form>
 	<hr style="border: solid 2px;">
 	<table>
 	<tr id="first-tr">
@@ -112,44 +128,46 @@
 		<th>별점</th>
 		<th>조회수</th>
 	</tr>
-	<tr onClick="location.href='reviewV'">
-		<td>1</td>
-		<td id="title"><img class="product-image" src="images/product1.png" alt="" width="70px" height="70px"/><span>만족해요(3)</span></td>
-		<td >park</td>
-		<td>2020-09-23</td>
-		<td><img class="star-image" src="images/star5.png" alt="" /></td>
-		<td>1</td>
+	<c:forEach var="review" items="${list}" varStatus="status">
+		<c:set var="imgPath" value="${fn:split(review.review_board_img_path,',')}" />
+		<tr onClick="location.href='reviewV?review_board_id=${review.review_board_id}'">
+		<td>${pagingDto.startRN + status.index}</td>
+		<td id="title"><img style="display:${(review.review_board_img_path == '')?'none':''}" class="product-image" src="upload/${imgPath[0]}" alt="" width="70px" height="70px"/><span>${review.review_board_title}&nbsp;${(review.reply_count == 0)?'':[review.reply_count]}</span></td>
+		<td>${review.member_id}</td>
+		<td>
+			<fmt:formatDate value="${review.review_board_date}" pattern="yyyy-MM-dd" />
+		</td>
+		<td><img class="star-image" src="images/star${review.review_board_score}.png" alt="" /></td>
+		<td>${review.review_board_hit}</td>
 	</tr>
-	<tr onClick="location.href='reviewV'">
-		<td>1</td>
-		<td id="title"><img class="product-image" src="images/product1.png" alt="" width="70px" height="70px"/><span>만족해요</span></td>
-		<td >park</td>
-		<td>2020-09-23</td>
-		<td><img class="star-image" src="images/star5.png" alt="" /></td>
-		<td>1</td>
-	</tr>
-	<tr onClick="location.href='reviewV'">
-		<td>1</td>
-		<td id="title">보통이에요</td>
-		<td >park</td>
-		<td>2020-09-23</td>
-		<td><img class="star-image" src="images/star4.png" alt="" /></td>
-		<td>1</td>
-	</tr>
+	</c:forEach>
 	</table>
-	    <div id="search-bar">
-		<select id="select-box">
-			<option>제목</option>
-			<option>아이디</option>
-		</select>
-		<input id="input" type="text">
-		<img id="search-logo" src="images/search.png" style="border: solid 0.5px;">
-		
-		<button id="review-write" onClick="location.href='reviewW'">리뷰작성</button>
-		
+		<div>
+			<a href="reviewMain?page=1&findBy=${reviewDto.findBy}&${reviewDto.findBy}=${reviewDto.member_id}${reviewDto.review_board_title}">처음</a>
+			<a href="reviewMain?page=${pagingDto.page-1}&findBy=${reviewDto.findBy}&${reviewDto.findBy}=${reviewDto.member_id}${reviewDto.review_board_title}">이전</a>
+			<c:forEach var="no" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+				<a href="reviewMain?page=${no}&findBy=${reviewDto.findBy}&${reviewDto.findBy}=${reviewDto.member_id}${reviewDto.review_board_title}" class="${(pagingDto.page == no)?'bold':''}" >${no}</a>
+			</c:forEach>
+			<a href="reviewMain?page=${pagingDto.page+1}&findBy=${reviewDto.findBy}&${reviewDto.findBy}=${reviewDto.member_id}${reviewDto.review_board_title}">다음</a>
+			<a href="reviewMain?page=${pagingDto.totalPage}&findBy=${reviewDto.findBy}&${reviewDto.findBy}=${reviewDto.member_id}${reviewDto.review_board_title}">마지막</a>
 		</div>
-		<br><br>
-	
+		<button id="review-write" type="button" onClick="location.href='reviewW'">리뷰작성</button>
+		<br><br><br>
 	<c:import url="../../footer.jsp" />
+	<script>
+		let input = document.getElementById("input");
+		let select = document.getElementById("select-box");
+		function search(){
+			input.name = select.value;
+		}
+		function change(value){
+			input.value = "";
+			if(value === ''){
+				input.style.display="none";
+			}else{
+				input.style.display="inline-block";
+			}
+		}
+	</script>
 </body>
 </html>

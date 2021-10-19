@@ -46,7 +46,7 @@
 		<th>등록일</th>
 	</tr>
 	<c:forEach var="product" items='${productList}' varStatus="status">
-		<tr onclick="window.open('aProductV?findBy=product_id&product_id=${product.product_id}','','width=780, height=700')">
+		<tr onclick="window.open('aProductV?findBy=product_id&product_id=${product.product_id}','','width=780, height=850')">
 			<td>${pagingDto.startRN + status.index}</td>
 			<c:set var="imgPathArr" value="${fn:split(product.product_img_path, ',')}"/> 
 			<td><img src="/upload/${imgPathArr[0]}" alt="업로드된 이미지" width="100px" height="100px"/></td>
@@ -70,7 +70,7 @@
 		<a href="aProductMain?page=${pagingDto.totalPage}&findBy=${productDto.findBy}&${productDto.findBy}=${productDto.product_name}">마지막</a>
 	</div>
 	<button id="button1" type="button" onClick="location.href='aMain'">메인으로</button>
-	<button id="button2" type="button" onClick="window.open('aProductW','','width=650, height=650')">상품등록</button>
+	<button id="button2" type="button" onClick="window.open('aProductW','','width=650, height=800')">상품등록</button>
 	<script>
 		let input = document.getElementById("input");
 		let selectBox = document.getElementById("select-box");

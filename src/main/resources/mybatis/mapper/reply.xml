@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naturalskin.dao.ReplyDao">
+	<select id="findById" resultType="com.naturalskin.dto.ReplyDto">
+		select * from review_reply where review_board_id = #{review_board_id}
+		order by review_reply_id 
+	</select>
+	<select id="findOneById" resultType="com.naturalskin.dto.ReplyDto">
+		select * from review_reply where review_reply_id = #{review_reply_id}
+	</select>
+	<insert id="write">
+		insert into review_reply (review_reply_id,review_board_id,member_id,review_reply_content,review_reply_group_no)
+		values(review_reply_seq.nextval,#{review_board_id},#{member_id},#{review_reply_content},#{review_reply_group_no})
+	</insert>
+	<delete id="delete">
+		delete from review_reply where review_reply_id = #{review_reply_id} or review_reply_group_no = #{review_reply_id}
+	</delete>
+	<update id="modify">
+		update review_reply set review_reply_content = #{review_reply_content}
+		where review_reply_id = #{review_reply_id}
+	</update>
+</mapper>

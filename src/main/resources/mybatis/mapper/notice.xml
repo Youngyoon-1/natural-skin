@@ -33,6 +33,14 @@
 	<select id="findById" resultType="com.naturalskin.dto.NoticeDto">
 		select * from notice_board where notice_board_id = #{notice_board_id}
 	</select>
+	<select id="findListByCount" resultType="com.naturalskin.dto.NoticeDto">
+	select * from(
+		select rownum rn, a.* from (
+			select * from notice_board order by notice_board_id desc
+		)a
+	) 
+	where rn between 1 and #{count}
+	</select>
 	<insert id="write">
 		insert into notice_board(notice_board_id,member_id,notice_board_title,notice_board_content)
 			values(notice_board_seq.nextval,'admin',#{notice_board_title},#{notice_board_content});
@@ -40,6 +48,10 @@
 	<update id="modify">
 		update notice_board set notice_board_title = #{notice_board_title},
 			notice_board_content = #{notice_board_content}
+			where notice_board_id = #{notice_board_id}
+	</update>
+	<update id="updateHit">
+			update notice_board set notice_board_hit = notice_board_hit + 1
 			where notice_board_id = #{notice_board_id}
 	</update>
 	<delete id="delete">

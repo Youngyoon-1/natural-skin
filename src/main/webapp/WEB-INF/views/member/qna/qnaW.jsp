@@ -122,36 +122,33 @@ textarea {
 				<h2>문의하기</h2>
 				<br>
 				<hr class="second-hr" style="border: solid 1px;">
-				<form action="">
+				<form action="writeQna" method="post">
+				<input type="hidden" name="member_id" value="${member_id}">
 				<table>
 					<tr>
 						<th>구분</th>
-						<td><select id="qna-box" onchange="select()">
-                                 <option value=>배송</option>
-                                 <option value="">상품</option>
+						<td><select id="qna-box" name="qna_board_type" onchange="select()">
+                                 <option value="배송">배송</option>
+                                 <option value="상품">상품</option>
                                  </select>
                                  <select id="product" onchange="" style="display:none">
-                                 <option value=>상품1</option>
-                                 <option value=>상품2</option>
-                                 <option value=>상품3</option>
+                                 <c:forEach var="product" items="${productList}">
+                                 	<option value="${product.product_id}">${product.product_name}</option>
+                                 </c:forEach>
                                  </select>
-                                                                                                                   
-                                                                    
-						<td><div>비밀글<input type="checkbox" id="secret-check" value=""></div></td>
+						<td><div>비밀글<input type="checkbox" name="qna_board_lock" id="secret-check" value="1"></div></td>
 					</tr>
 					<tr>
 						<th><label id="title-label">제목</label></th>
-						<td colspan="6"><input id="qna-title" value="배송문의입니다" type="text"></td>
+						<td colspan="6"><input id="qna-title" name="qna_board_title" value="" type="text"></td>
 					</tr>
 					<tr>
-						<td colspan="6"><textarea id="content" onkeydown="resize(this)" onkeyup="resize(this)"> 배송문의입니다.
-		</textarea></td>
+						<td colspan="6"><textarea id="content" name="qna_board_content"></textarea></td>
 					</tr>
 				</table>
 				<div id="buttons">
-					<button type="button" onclick="">글쓰기</button>
-					<button type="button"
-						onclick="history.back()">취소</button>
+					<button>글쓰기</button>
+					<button type="button"onclick="history.back()">취소</button>
 				</div>
 				</form>
 				</div>
@@ -160,23 +157,21 @@ textarea {
 				<c:import url="../../footer.jsp"/>
 				<script src="js/user/qna/qnaM.js"></script>
 				<script>
+				let secondSelBox = document.getElementById("product");
+				
 				function select(){
 					var qnaSelect = document.getElementById("qna-box");
 					var selected = qnaSelect.options[qnaSelect.selectedIndex].text;
 					if(selected == '상품'){
 						product.style.display = "inline-block";
+						secondSelBox.name="product_id";
 						}
 					else{
 						product.style.display = "none";
+						secondSelBox.name="";
 					}
 				    
 		   }
-		   function resize(obj){
-			obj.style.height = '1px';
-			obj.style.height = (12 + obj.scrollHeight) + 'px';
-			}
-				
-			
 				</script>
 			</body>
 

@@ -2,6 +2,7 @@ package com.naturalskin.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,4 +27,16 @@ public interface QnaDao {
 	int insert(QnaDto qnaDto);
 
 	int updateReplyState(QnaDto qnaDto);
+
+	int updateHit(QnaDto qnaDto);
+
+	int writeQna(QnaDto qnaDto);
+
+	int modifyQna(QnaDto qnaDto);
+
+	int findCountById(QnaDto qnaDto);
+
+	List<QnaDto> findListById(Map map);
+
+	List<QnaDto> findByProductId(Map map);
 }

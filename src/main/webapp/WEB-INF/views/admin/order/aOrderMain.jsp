@@ -9,6 +9,11 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" href="css/admin/order/aOrderMain.css">
+<style>
+#mainBtn{	
+	margin-bottom: 50px;
+}
+</style>
 <script type="text/javascript"></script>
 </head>
 <body>
@@ -42,7 +47,7 @@
 		<th>주문일</th>
 	</tr>
 	<c:forEach var="order" items='${orderList}' varStatus="status">
-		<tr onclick="window.open('aOrderV?member_id=${order.member_id}','','width=780, height=520')">
+		<tr onclick="window.open('aOrderV?member_order_id=${order.member_order_id}','','width=780, height=520')">
 		<td>${pagingDto.startRN + status.index}</td>
 		<td>${order.member_id}</td>
 		<td>${order.member_name}</td>
@@ -73,7 +78,7 @@
 			마지막
 		</a>
 	</div>
-	<button type="button" onClick="location.href='aMain'">메인으로</button>
+	<button id="mainBtn" type="button" onClick="location.href='aMain'">메인으로</button>
 	<script>
 		let input = document.getElementById("input");
 		input.style.display = "none";

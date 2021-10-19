@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -99,6 +100,9 @@ button{
 padding-right:7px;
 padding-left:7px;
 }
+.bold{
+font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -107,6 +111,7 @@ padding-left:7px;
 	<h1>나의게시물</h1>
 	<hr style="border: solid 2px;">
 	<h2>Q&A게시물</h2>
+	<br>
 	<hr class="second-hr" style="border: solid 1px;">
 	<table>
 		<tr id="first-tr">
@@ -115,40 +120,25 @@ padding-left:7px;
 			<th>제목</th>
 			<th>작성일</th>
 		</tr>
-		<tr onclick="location.href='#'">
-			<td>3</td>
-			<td>배송</td>
-			<td>질문드립니다.</td>
-			<td>2021-09-27</td>
-		</tr>
-		<tr onclick="location.href='#'">
-			<td>4</td>
-			<td>배송</td>
-			<td><img id="re" src="images/re.png">질문드립니다.</td>
-			<td>2021-09-27</td>
-		</tr>
-		<tr onclick="location.href='#'">
-			<td>2</td>
-			<td>배송</td>
-			<td>배송문의입니다.</td>
-			<td>2021-09-27</td>
-		</tr>
-		<tr onclick="location.href='#'">
-			<td>1</td>
-			<td>상품</td>
-			<td>배송문의입니다.<img id="lock" src="images/lock.png" alt="잠금" /></td>
-			<td>2021-09-27</td>
-		</tr>
+		<c:forEach var="qna" items= "${list}" varStatus="status">
+			<tr onclick="location.href='qnaV?qna_board_id=${qna.qna_board_id}'">
+				<td>${pagingDto.startRN + status.index}</td>
+				<td>${qna.qna_board_type}</td>
+				<td><img id="re" style="display:${(qna.qna_board_reply_state == 2)?'':'none'}" src="images/re.png">${qna.qna_board_title}<img id="lock" style="display:${(qna.qna_board_lock == 1)?'':'none'}" src="images/lock.png" alt="잠금" /></td>
+				<td><fmt:formatDate value="${qna.qna_board_date}" pattern="yyyy-MM-dd" /></td>
+			</tr>
+		</c:forEach>
 	</table>
-	<br>
-	<div id="search-bar">
-		<select>
-			<option>제목</option>
-			<option>구분</option>
-		</select>
-		<input type="text">
-		<input type="image" id="search-logo" src="images/search.png" style="border: solid 0.5px;"/>
+	<div>
+		<a href="myPageQna?page=1">처음</a>
+		<a href="myPageQna?page=${pagingDto.page-1}">이전</a>
+		<c:forEach var="no" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+			<a class="${(pagingDto.page == no)?'bold':''}" href="myPageQna?page=${no}">${no}</a>
+		</c:forEach>
+		<a href="myPageQna?page=${pagingDto.page+1}">다음</a>
+		<a href="myPageQna?page=${pagingDto.totalPage}">마지막</a>
 	</div>
+	<br>
 	<div id="btns">
 		<button type="button" onclick="location.href='myPageReview'">리뷰게시물</button>
 		<button type="button" onclick="location.href='myPageMain'">마이페이지</button>

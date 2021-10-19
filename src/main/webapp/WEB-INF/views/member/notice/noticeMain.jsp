@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
@@ -39,8 +40,8 @@ hr{
 	cursor: pointer;
 }
 #search-bar{
-	text-align: left;
-	margin-left: 65px;
+	text-align: right;
+	margin-right: 65px;
 }
 h2{
 	font-size: 45px;
@@ -88,6 +89,9 @@ button:hover{
 #noticemain{
 	width: 100%;
 }
+.bold{
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -96,6 +100,16 @@ button:hover{
 	<br>
 	<h2>공지사항</h2>
 	<br>
+	<form action="noticeMain" onsubmit="return checkForm()">
+	<div id="search-bar">
+		<select id="select-box" name="findBy" onchange="roleClick(this.value)">
+			<option value="">전체보기</option>
+			<option ${(noticeDto.findBy == 'notice_board_title')?'selected':''} value="notice_board_title">제목</option>
+		</select>
+		<input value="${noticeDto.notice_board_title}" style="display:${(noticeDto.findBy == 'notice_board_title')?'':'none'}" id="input" type="text">
+		<input type="image" id="search-logo" src="images/search.png" style="border: solid 0.5px;">
+	</div>
+	</form>
 	<hr class="second-hr" style="border: solid 1px;">
 	<table>
 	<tr id="first-tr">
@@ -104,24 +118,45 @@ button:hover{
 		<th>아이디</th>
 		<th>작성일</th>
 	</tr>
-	<tr onclick="location.href='noticeV'">	
-		<td>1</td>
-		<td>공지사항</td>
-		<td>관리자</td>
-		<td>2021/09/29</td>
+	<c:forEach var="notice" items="${list}" varStatus="status">
+	<tr onclick="location.href='noticeV?notice_board_id=${notice.notice_board_id}'">	
+		<td>${pagingDto.startRN + status.index}</td>
+		<td>${notice.notice_board_title}</td>
+		<td>${notice.member_id}</td>
+		<td><fmt:formatDate value="${notice.notice_board_date}" pattern="yyyy-MM-dd" /></td>
 	</tr>
+	</c:forEach>
 	</table>
-	<div id="search-bar">
-		<select id="select-box" onchange="roleClick()">
-			<option>제목</option>
-		</select>
-		<input id="input" type="text">
-		<img id="search-logo" src="images/search.png" style="border: solid 0.5px;">
+	<div>
+	<a href="noticeMain?page=1&findBy=${noticeDto.findBy}&${noticeDto.findBy}=${noticeDto.notice_board_title}">처음</a>
+	<a href="noticeMain?page=${pagingDto.page - 1}&findBy=${noticeDto.findBy}&${noticeDto.findBy}=${noticeDto.notice_board_title}">이전</a>
+	<c:forEach var="no" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+		<a href="noticeMain?page=${no}&findBy=${noticeDto.findBy}&${noticeDto.findBy}=${noticeDto.notice_board_title}" class="${(pagingDto.page == no)?'bold':''}">${no}</a>
+	</c:forEach>
+	<a href="noticeMain?page=${pagingDto.page + 1}&findBy=${noticeDto.findBy}&${noticeDto.findBy}=${noticeDto.notice_board_title}">다음</a>
+	<a href="noticeMain?page=${pagingDto.totalPage}&findBy=${noticeDto.findBy}&${noticeDto.findBy}=${noticeDto.notice_board_title}">마지막</a>
 	</div>
 	<br>
 	<br>
+	<c:import url="../../footer.jsp"/>
 	<script src="js/member/notice/Noticemain.js"></script>
-<c:import url="../../footer.jsp"/>
-	
+	<script>
+		let searchInput = document.getElementById("input");
+		let selBox = document.getElementById("select-box");
+		function roleClick(value){
+			searchInput.value='';
+			if(value === 'notice_board_title'){
+				searchInput.style.display = 'inline-block';
+			}else{
+				searchInput.style.display = 'none';
+				
+			}
+		}
+		function checkForm(){
+			if(selBox.value === 'notice_board_title'){
+				searchInput.name="notice_board_title";
+			}
+		}
+	</script>
 </body>
 </html>

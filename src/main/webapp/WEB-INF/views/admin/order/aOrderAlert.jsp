@@ -14,7 +14,7 @@
 	<main>
 		<p>해당 주문건을 삭제하시겠습니까?</p>
 		<button id="first-btn" type="button" onclick="window.close()">취소</button>
-		<button type="button" onclick="location.href='aOrderDelete?member_id=${param.member_id}'">확인</button>
+		<button type="button" onclick="location.href='aOrderDelete?member_order_id=${param.member_order_id}'">확인</button>
 	</main>
 </body>
 </html>
