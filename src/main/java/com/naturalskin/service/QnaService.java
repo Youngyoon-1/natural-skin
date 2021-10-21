@@ -48,16 +48,17 @@ public class QnaService {
 		return qnaDao.delete(qnaDto);
 	}
 
-	public QnaDto findById(QnaDto qnaDto) {
-		return qnaDao.findById(qnaDto);
-	}
 	
 	@Transactional
 	public int WriteReply(QnaDto qnaDto) {
 		qnaDao.updateReplyState(qnaDto);  //답변글 작성시 해당 질문글 상태 1으로 업데이트
 		return qnaDao.insert(qnaDto);
 	}
-
+	
+	public QnaDto findById(QnaDto qnaDto) {
+		return qnaDao.findById(qnaDto);
+	}
+	
 	public int updateHit(QnaDto qnaDto) {
 		return qnaDao.updateHit(qnaDto);
 	}

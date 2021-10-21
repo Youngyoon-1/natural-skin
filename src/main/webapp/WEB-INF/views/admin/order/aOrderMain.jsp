@@ -32,6 +32,14 @@
 				<option ${(orderDto.findBy == "member_id")?"selected":""} value="member_id">아이디</option>
 				<option ${(orderDto.findBy == "member_name")?"selected":""} value="member_name">이름</option>
 				<option ${(orderDto.findBy == "member_order_id")?"selected":""} value="member_order_id">주문번호</option>
+				<option ${(orderDto.findBy == "member_order_state")?"selected":""} value="member_order_state">주문상태</option>
+			</select>
+			<select name="member_order_state" style="display:${(orderDto.findBy == 'member_order_state')?'':'none'}" id="member_order_state">
+				<option ${(orderDto.member_order_state == "배송완료")?"selected":""} value="배송완료">배송완료</option>
+				<option ${(orderDto.member_order_state == "배송중")?"selected":""} value="배송중">배송중</option>
+				<option ${(orderDto.member_order_state == "배송준비중")?"selected":""} value="배송준비중">배송준비중</option>
+				<option ${(orderDto.member_order_state == "주문취소완료")?"selected":""} value="주문취소완료">주문취소완료</option>
+				<option ${(orderDto.member_order_state == "주문취소요청")?"selected":""} value="주문취소요청">주문취소요청</option>
 			</select>
 			<input value="${param.member_id}${param.member_name}${param.member_order_id}" id="input" type="text">
 			<input id="search-logo" type="image" src="images/search.png" style="border: solid 0.5px;">
@@ -81,11 +89,12 @@
 	<button id="mainBtn" type="button" onClick="location.href='aMain'">메인으로</button>
 	<script>
 		let input = document.getElementById("input");
+		let member_order_state = document.getElementById("member_order_state");
+		let selectBox = document.getElementById("select-box");
 		input.style.display = "none";
 		
 		function search(){
-			let selectBox = document.getElementById("select-box");
-			
+			if(selectBox.value !== "member_order_state")
 			input.name = selectBox.value;
 		}
 		
@@ -93,13 +102,21 @@
 			input.value = "";
 			if(value === ""){
 				input.style.display = "none";
-			}else{
+				member_order_state.style.display = 'none';
+			}else if(value ==='member_order_state'){
+				input.style.display = "none";
+				member_order_state.style.display = 'inline-block';
+			}
+			else{
 				input.style.display = "inline-block";
+				member_order_state.style.display = 'none';
 			}
 		}
 		
 		let selectBoxOpt = document.querySelector("#select-box > option:checked");
-		if(selectBoxOpt.value !== ""){
+		if(selectBoxOpt.value === "" || selectBoxOpt.value === "member_order_state"){
+			input.style.display = "none";
+		}else{
 			input.style.display = "inline-block";
 		}
 		

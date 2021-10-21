@@ -24,7 +24,7 @@
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>주문관리<div><span style="display:${(newOrderCount==0 && cancelReqCount==0)?'none':''}">New!</span></div></div>
-			<a id="orderAnchor" href="aOrderMain"><p class="p">신규주문(새로운 <span>${newOrderCount}</span>건)<br>취소요청(새로운 <span>${cancelReqCount}</span>건)</p></a>
+			<p class="p"><a class="aMain" href="aOrderMain?findBy=member_order_state&member_order_state=배송준비중">신규주문(새로운 <span>${newOrderCount}</span>건)</a><br><a class="aMain" href="aOrderMain?findBy=member_order_state&member_order_state=주문취소요청">취소요청(새로운 <span>${cancelReqCount}</span>건)</a></p>
 		</div>
 		<div>
 			<div class="front"><div><img src="images/task.png"/></div>상품관리</div>

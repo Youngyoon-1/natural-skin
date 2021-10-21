@@ -14,6 +14,7 @@
 					<when test="orderDto.findBy == 'member_id'">where member_id = #{orderDto.member_id}</when>
 					<when test="orderDto.findBy == 'member_name'">where member_name = #{orderDto.member_name}</when>
 					<when test="orderDto.findBy == 'member_order_id'">where member_order_id = #{orderDto.member_order_id}</when>
+					<when test="orderDto.findBy == 'member_order_state'">where member_order_state = #{orderDto.member_order_state}</when>
 				</choose>
 				order by member_order_id desc)a
 		) where rn between #{pagingDto.startRN} and #{pagingDto.endRN}

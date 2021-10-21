@@ -73,18 +73,6 @@
 	</form>
 	<script>
 		
-		function modify(){
-			/* let imgPath = document.getElementById("imgPath");
-			let contentImgPath = document.getElementById("contentImgPath");
-			if(imgPath.files.length !== 0){
-				
-			}
-			
-			if(contentImgPath.files.length !== 0){
-				
-			}
-			return false; */
-		} 
 		function deleteImg(index,imgPath){
 			let delImgPath = imgPath;
 			let originPath = '${product.product_img_path}';

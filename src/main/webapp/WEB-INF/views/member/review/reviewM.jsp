@@ -316,6 +316,7 @@ textarea {
 						}		
 					}
 				}
+				
 				function cancel(){
 					let spanArr = document.querySelectorAll(".tempSpan");
 					for(span of spanArr){
@@ -323,6 +324,7 @@ textarea {
 					}
 					history.back();
 				}
+				
 				function checkForm(){
 					flag = false;
 					let imgArr = document.querySelectorAll("#review-image img");
